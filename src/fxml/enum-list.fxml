@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import com.sun.javafx.scene.control.skin.TableHeaderRow?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1118.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnumListController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" layoutX="14.0" layoutY="14.0" prefHeight="785.0" prefWidth="1111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="761.0" prefWidth="241.0">
+               <children>
+                  <TableView fx:id="enumTable" prefHeight="761.0" prefWidth="182.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="928.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="className" prefWidth="105.0" text="Enum" />
+                      <TableColumn fx:id="enumDeleteButton" prefWidth="75.0" text="操作" />
+                    </columns>
+                  </TableView>
+                  <TableView fx:id="enumProperties" layoutX="206.0" prefHeight="293.0" prefWidth="323.0">
+                    <columns>
+                      <TableColumn fx:id="enumName" prefWidth="102.0" text="name" />
+                      <TableColumn fx:id="enumValue" prefWidth="110.0" text="value" />
+                      <TableColumn fx:id="propertiesDeleteButton" prefWidth="110.0" text="操作" />
+                    </columns>
+                  </TableView>
+                  <Button  fx:id="addProperties"  layoutX="336.0" layoutY="411.0" mnemonicParsing="false" text="新增属性" onMouseClicked="#addProperties"/>
+                  <TextField fx:id="newName" layoutX="206.0" layoutY="322.0" prefHeight="23.0" prefWidth="141.0" promptText="name新增" />
+                  <TextField fx:id="newValue" layoutX="387.0" layoutY="322.0" prefHeight="23.0" prefWidth="141.0" promptText="value新增" />
+               </children>
+            </AnchorPane>
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="761.0" prefWidth="0.0" />
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

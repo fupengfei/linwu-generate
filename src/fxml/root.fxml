@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+
+<BorderPane fx:controller="controller.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar prefHeight="8.0" prefWidth="913.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Java">
+            <items>
+              <MenuItem mnemonicParsing="false" text="新增枚举" onAction="#showEnumNewFXML"/>
+              <MenuItem mnemonicParsing="false" text="枚举列表" onAction="#showEnumListFXML"/>
+              <MenuItem mnemonicParsing="false" text="代码生成" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Vue">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
