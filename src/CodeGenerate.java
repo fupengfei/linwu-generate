@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import jvm.Hook;
 
 
 public class CodeGenerate extends Application {
@@ -39,6 +40,7 @@ public class CodeGenerate extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        Hook.start();
     }
 
 }

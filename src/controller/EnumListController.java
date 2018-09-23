@@ -2,6 +2,8 @@ package controller;
 
 import bean.EnumBean;
 import bean.EnumProperties;
+import cache.Cache;
+import contants.Constant;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +16,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import utils.UI;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -27,6 +32,8 @@ import java.util.ResourceBundle;
  * @Date 2018/9/21/021
  * @Description
  */
+@Getter
+@Setter
 public class EnumListController extends BaseController implements Initializable {
     @FXML
     private TableView enumTable;
@@ -65,8 +72,7 @@ public class EnumListController extends BaseController implements Initializable 
         enumTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showEnumDetailTable((EnumBean) newValue));
 
-        //测试数据
-        testInitData();
+        enumTable.setItems(enumBeans);
     }
 
 
@@ -106,29 +112,12 @@ public class EnumListController extends BaseController implements Initializable 
         }
         EnumBean enumBean = (EnumBean) enumTable.getItems().get(selectedIndex);
 
-        EnumProperties newProperties = new EnumProperties(enumProperties,enumBean);
+        EnumProperties newProperties = new EnumProperties(enumBean);
+        newProperties.initTableView(enumProperties);
         newProperties.setCode(name);
         newProperties.setMsg(value);
 
         enumBean.getProperties().add(newProperties);
         showEnumDetailTable(enumBean);
-    }
-
-    public void testInitData(){
-        for (int i = 0; i < 3; i++) {
-            EnumBean bean = new EnumBean(enumTable);
-            bean.setClassName("test"+i);
-            List<EnumProperties> properties = new ArrayList<>();
-            bean.setProperties(properties);
-            for (int j = i; j < 3; j++) {
-                EnumProperties p1 = new EnumProperties(enumProperties,bean);
-                p1.setCode("c"+j);
-                p1.setMsg("m"+j);
-                properties.add(p1);
-            }
-            enumProperties.setItems(FXCollections.observableArrayList(properties));
-            enumBeans.add(bean);
-        }
-        enumTable.setItems(enumBeans);
     }
 }

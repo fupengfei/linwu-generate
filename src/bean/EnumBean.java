@@ -1,6 +1,7 @@
 package bean;
 
 import cache.Cache;
+import com.google.gson.annotations.Expose;
 import contants.Constant;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -18,19 +19,26 @@ import java.util.List;
 @Getter
 @Setter
 public class EnumBean {
+    @Expose
     private String className;
+    @Expose
     private List<EnumProperties> properties ;
+    @Expose(serialize = false)
     private TableView enumTable;
+    @Expose(serialize = false)
     private Button deleteButton;
 
-    public EnumBean(TableView enumTable){
-        this.enumTable = enumTable;
+    public void initButton(){
         this.deleteButton = new Button();
         deleteButton.setText("删除");
         deleteButton.setOnMouseClicked(event -> {
-            enumTable.getItems().remove(this);
+            this.enumTable.getItems().remove(this);
             Cache.getGuavaTable().remove(Constant.ENUM_JSON,className);
-            //TODO 删除JSON文件中的对象
         });
+    }
+
+    public void initTableView(TableView enumTable){
+        this.enumTable = enumTable;
+        initButton();
     }
 }

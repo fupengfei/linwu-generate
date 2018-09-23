@@ -4,6 +4,8 @@ import bean.EnumBean;
 import bean.EnumProperties;
 import cache.Cache;
 import com.google.common.collect.Table;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import contants.Constant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +16,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import utils.IOUtils;
 import utils.UI;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -28,6 +34,8 @@ import java.util.stream.Collectors;
  * @Date 2018/9/21/021
  * @Description
  */
+@Getter
+@Setter
 public class EnumNewController extends BaseController implements Initializable {
     @FXML
     private TableView enumTable;
@@ -67,6 +75,7 @@ public class EnumNewController extends BaseController implements Initializable {
         enumTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showEnumDetailTable((EnumBean) newValue));
         enumTable.setItems(enumBeans);
+
     }
 
 
@@ -100,12 +109,15 @@ public class EnumNewController extends BaseController implements Initializable {
             return;
         }
 
-        EnumProperties newProperties = new EnumProperties(enumProperties,null);
+        EnumProperties newProperties = new EnumProperties(null);
+        newProperties.initTableView(enumProperties);
         newProperties.setCode(name);
         newProperties.setMsg(value);
         properties.add(newProperties);
         enumProperties.setItems(properties);
 
+        newName.setText(null);
+        newValue.setText(null);
     }
 
 
@@ -131,7 +143,8 @@ public class EnumNewController extends BaseController implements Initializable {
             return;
         }
 
-        EnumBean bean = new EnumBean(enumTable);
+        EnumBean bean = new EnumBean();
+        bean.initTableView(enumTable);
         bean.setClassName(enumName);
         List<EnumProperties> collect = properties.stream().map(pro -> {
             pro.setBean(bean);
@@ -141,5 +154,8 @@ public class EnumNewController extends BaseController implements Initializable {
         enumBeans.add(bean);
         properties.clear();
         guavaTable.put(Constant.ENUM_JSON,enumName,bean);
+
+        enumClassName.setText(null);
+
     }
 }
