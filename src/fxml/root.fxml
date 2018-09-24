@@ -17,7 +17,7 @@
             <items>
               <MenuItem mnemonicParsing="false" text="新增枚举" onAction="#showEnumNewFXML"/>
               <MenuItem mnemonicParsing="false" text="枚举列表" onAction="#showEnumListFXML"/>
-              <MenuItem mnemonicParsing="false" text="代码生成" />
+              <MenuItem mnemonicParsing="false" text="代码生成" onAction="#showDbFXML"/>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Vue">

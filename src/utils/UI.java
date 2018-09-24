@@ -17,4 +17,12 @@ public class UI {
         alert.showAndWait();
     }
 
+    public static void alertInfoMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("提示信息");
+        alert.setHeaderText("成功");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

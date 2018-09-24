@@ -10,6 +10,10 @@ import java.nio.charset.Charset;
 public class Constant {
     public static final String ENUM_JSON = "enum_json";
     public static final String ENUM_PROPERTIES = "enum_properties";
+    public static final String DB = "DB";
+    public static final String TABLE_CONFIG = "tableConfig";
+    public static final String GLOBAL_CONFIG = "GlobalConfig";
+
 
 
 

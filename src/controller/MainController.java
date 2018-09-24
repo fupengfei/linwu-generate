@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.IOUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,21 @@ public class MainController extends BaseController implements Initializable {
         }
     }
 
+    /**数据库链接页面
+     * @param actionEvent
+     * @throws Exception
+     */
+    public void showDbFXML(ActionEvent actionEvent) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainController.class.getResource("/fxml/db.fxml"));
+        AnchorPane anchorPane = loader.load();
+        this.rootBorderPane.setCenter(anchorPane);
+
+        DbController controller = loader.getController();
+        controller.setRootStage(rootStage);
+        controller.setRootBorderPane(rootBorderPane);
+    }
+
     /**展示通用枚举窗口
      * @param actionEvent
      */
@@ -150,4 +166,6 @@ public class MainController extends BaseController implements Initializable {
         Gson gson = builder.create();
         return gson.fromJson(enumJson, EnumBean[].class);
     }
+
+
 }

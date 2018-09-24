@@ -1,5 +1,7 @@
 package contants;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Arrays;
  * @date ：2018/9/18
  * @description :
  */
+@Getter
 public enum DBTypeEnum {
     MYSQL("Mysql","com.mysql.jdbc.Driver","jdbc:mysql://");
 
@@ -32,17 +35,5 @@ public enum DBTypeEnum {
     public static String getTypePrefix(String prefix) {
         return Arrays.stream(DBTypeEnum.values()).filter(obj -> obj.getPrefix().equals(prefix))
                 .map(obj -> obj.getPrefix()).findFirst().orElse(null);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public String getPrefix() {
-        return prefix;
     }
 }

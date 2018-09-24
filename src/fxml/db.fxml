@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import com.sun.javafx.scene.control.skin.TableHeaderRow?>
+
+<?import javafx.collections.FXCollections?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1118.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DbController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" layoutY="7.0" prefHeight="763.0" prefWidth="1118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TextField fx:id="url" layoutX="77.0" layoutY="59.0" promptText="URL" />
+                  <TextField fx:id="username" layoutX="77.0" layoutY="121.0" promptText="username" />
+                  <TextField fx:id="password" layoutX="77.0" layoutY="181.0" promptText="password" />
+                   <ComboBox fx:id="dbType" layoutX="77.0" layoutY="250.0" prefHeight="23.0" prefWidth="161.0" >
+                       <items>
+                           <FXCollections fx:factory="observableArrayList">
+                               <String fx:value="Mysql" />
+                           </FXCollections>
+                       </items>
+                   </ComboBox>
+                  <Button fx:id="dbSubmit" layoutX="125.0" layoutY="315.0" mnemonicParsing="false" text="确定" onAction="#checkDbParasm"/>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="rightAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
