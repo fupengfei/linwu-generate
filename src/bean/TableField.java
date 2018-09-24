@@ -68,7 +68,20 @@ public class TableField {
 
                 //选择关联对象  加载关联对象窗口
                 if(newNum.intValue()==1){
+                    Table<String, Object, Object> guavaTable = Cache.getGuavaTable();
+                    Pane pane  = (Pane) guavaTable.get(Constant.OBJ_TABLE_FIELD_PAN,Constant.OBJ_TABLE_FIELD_PAN);
+                    AnchorPane rightFieldEdit = (AnchorPane) guavaTable.get(Constant.RIGHT_FIELD_EDIT_PAN, Constant.RIGHT_FIELD_EDIT_PAN);
+                    ObservableList<Node> children = rightFieldEdit.getChildren();
+                    children.clear();
+                    children.add(pane);
 
+                    //缓存当前字段需要配置的索引
+                    for (int i = 0; i <fieldTable.getItems().size(); i++) {
+                        TableField f = (TableField) fieldTable.getItems().get(i);
+                        if(f.getChoiceBox().equals(choiceBox)){
+                            guavaTable.put(Constant.FIELD_INDEX,Constant.FIELD_INDEX,i);
+                        }
+                    }
                 }
                 //选择枚举   加载枚举窗口
                 if(newNum.intValue()==2){

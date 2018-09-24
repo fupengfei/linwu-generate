@@ -24,6 +24,7 @@ public class Constant {
 
 
     public static final String FIELD_ENUM_PAN = "field-enum";
+    public static final String OBJ_TABLE_FIELD_PAN = "obj-table-field";
     public static final String RIGHT_FIELD_EDIT_PAN = "rightFieldEdit";
 
 

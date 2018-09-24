@@ -1,0 +1,23 @@
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+<Pane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ObjectTableFieldController">
+    <children>
+        <TableView fx:id="objTable" layoutX="7.0" layoutY="32.0" prefHeight="452.0" prefWidth="200.0">
+            <columns>
+                <TableColumn prefWidth="43.0" />
+                <TableColumn fx:id="tableName" prefWidth="107.0" text="表名" />
+                <TableColumn fx:id="tableOperate" prefWidth="49.0" text="操作" />
+            </columns>
+        </TableView>
+        <TableView fx:id="fieldTable" layoutX="214.0" layoutY="32.0" prefHeight="200.0" prefWidth="335.0">
+            <columns>
+                <TableColumn fx:id="fieldName" prefWidth="117.0" text="字段" />
+                <TableColumn fx:id="fieldType" prefWidth="128.0" text="类型" />
+                <TableColumn fx:id="fieldOperate" prefWidth="89.0" text="关联操作" />
+            </columns>
+        </TableView>
+        <TextField fx:id="search" layoutX="7.0" layoutY="3.0" promptText="搜索表名" />
+</children>
+</Pane>

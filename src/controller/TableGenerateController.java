@@ -87,11 +87,11 @@ public class TableGenerateController extends BaseController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Cache.getGuavaTable().get(Constant.FIELD_ENUM_PAN,Constant.FIELD_ENUM_PAN);
         Cache.getGuavaTable().put(Constant.FIELD_TABLE,Constant.FIELD_TABLE,fieldTable);
         Cache.getGuavaTable().put(Constant.RIGHT_FIELD_EDIT_PAN,Constant.RIGHT_FIELD_EDIT_PAN,rightFieldEdit);
         initTableView();
         initFieldEnumFXML();
+        initFieldObjectFXML();
         tableGenerate.addAll(ChooseTableController.select);
         TableConfig tableConfig = (TableConfig) Cache.getGuavaTable().get(Constant.TABLE_CONFIG, Constant.TABLE_CONFIG);
 
@@ -230,6 +230,9 @@ public class TableGenerateController extends BaseController implements Initializ
         queryCheckBox.setSelected(fileChoose.isQuery());
     }
 
+    /**
+     * 加载字段关联枚举页面
+     */
     public void initFieldEnumFXML(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -242,6 +245,24 @@ public class TableGenerateController extends BaseController implements Initializ
             controller.setRootBorderPane(rootBorderPane);
         } catch (IOException e) {
             UI.alertErrorMessage(String.format("加载field-enum失败：%s",e.getMessage()));
+        }
+    }
+
+    /**
+     * 加载字段关联对象页面
+     */
+    public void initFieldObjectFXML(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainController.class.getResource("/fxml/obj-table-field.fxml"));
+            Pane pane = loader.load();
+            Cache.getGuavaTable().put(Constant.OBJ_TABLE_FIELD_PAN,Constant.OBJ_TABLE_FIELD_PAN,pane);
+
+            ObjectTableFieldController controller = loader.getController();
+            controller.setRootStage(rootStage);
+            controller.setRootBorderPane(rootBorderPane);
+        } catch (IOException e) {
+            UI.alertErrorMessage(String.format("加载obj-table-field失败：%s",e.getMessage()));
         }
     }
 
