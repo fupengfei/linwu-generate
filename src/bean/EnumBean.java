@@ -27,6 +27,8 @@ public class EnumBean {
     private TableView enumTable;
     @Expose(serialize = false)
     private Button deleteButton;
+    @Expose(serialize = false)
+    private Button selectButton;
 
     public void initButton(){
         this.deleteButton = new Button();
@@ -37,8 +39,18 @@ public class EnumBean {
         });
     }
 
+    public void initSelectButton(){
+        this.selectButton = new Button();
+        selectButton.setText("选择");
+        selectButton.setOnMouseClicked(event -> {
+//            this.enumTable.getItems().remove(this);
+//            Cache.getGuavaTable().remove(Constant.ENUM_JSON,className);
+        });
+    }
+
     public void initTableView(TableView enumTable){
         this.enumTable = enumTable;
         initButton();
+        initSelectButton();
     }
 }

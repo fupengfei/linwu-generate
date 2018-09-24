@@ -1,10 +1,19 @@
+import bean.EnumBean;
+import bean.EnumProperties;
+import cache.Cache;
+import contants.Constant;
 import controller.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jvm.Hook;
+import utils.EnumJsonUtils;
+import utils.IOUtils;
+
+import java.util.List;
 
 
 public class CodeGenerate extends Application {
@@ -16,6 +25,21 @@ public class CodeGenerate extends Application {
     public void start(Stage rootStage) throws Exception{
         initRootFxml(rootStage);
 
+        EnumBean[] enumBeans = EnumJsonUtils.jsonToEnumBeanArr();
+        if (enumBeans == null||enumBeans.length<1) {
+            return;
+        }
+        for (int i = 0; i < enumBeans.length; i++) {
+            enumBeans[i].initTableView(null);
+            List<EnumProperties> properties = enumBeans[i].getProperties();
+            if (properties != null && !properties.isEmpty()) {
+                for (int j = 0; j < properties.size(); j++) {
+                    properties.get(j).initTableView(null);
+                    properties.get(j).setBean(enumBeans[i]);
+                }
+            }
+            Cache.setGuavaTable(Constant.ENUM_JSON,enumBeans[i].getClassName(),enumBeans[i]);
+        }
     }
 
     /**加载主布局

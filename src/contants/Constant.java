@@ -16,6 +16,9 @@ public class Constant {
 
 
 
+    public static final String FIELD_ENUM_PAN = "field-enum";
+    public static final String RIGHT_FIELD_EDIT_PAN = "rightFieldEdit";
+
 
     public static final String ALL_TABLE = "all_table";
     public static final String UTF8 = Charset.forName("UTF-8").name();

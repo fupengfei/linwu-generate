@@ -10,52 +10,54 @@
     <children>
         <SplitPane dividerPositions="0.29797979797979796" layoutY="7.0" prefHeight="763.0" prefWidth="1118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane fx:id="leftAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane fx:id="leftAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="761.0" prefWidth="236.0">
                <children>
-                  <TableView fx:id="table" prefHeight="761.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="table" prefHeight="761.0" prefWidth="236.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="tableGeneratePic" prefWidth="46.0" />
                       <TableColumn fx:id="tableGenerateName" prefWidth="193.0" text="表名" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
-                <AnchorPane fx:id="rightAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane fx:id="rightAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="761.0" prefWidth="880.0">
                <children>
-                  <Pane layoutX="14.0" layoutY="22.0" prefHeight="761.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Pane layoutX="-14.0" layoutY="-14.0" prefHeight="761.0" prefWidth="874.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="-14.0">
                      <children>
-                         <CheckBox fx:id="controllerCheckBox" layoutX="31.0" layoutY="33.0" mnemonicParsing="false" selected="false" text="controller" />
-                         <CheckBox fx:id="remoteCheckBox" layoutX="131.0" layoutY="33.0" mnemonicParsing="false" text="remote" />
-                         <CheckBox fx:id="remoteImplCheckBox" layoutX="250.0" layoutY="33.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="101.0" text="remoteImpl" />
-                         <CheckBox fx:id="serviceCheckBox" layoutX="363.0" layoutY="33.0" mnemonicParsing="false" text="service" />
-                         <CheckBox fx:id="serviceImplCheckBox" layoutX="462.0" layoutY="33.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="101.0" text="serviceImpl" />
-                         <CheckBox fx:id="daoCheckBox" layoutX="30.0" layoutY="66.0" mnemonicParsing="false" text="dao" />
-                         <CheckBox fx:id="enhancedCheckBox" layoutX="131.0" layoutY="102.0" mnemonicParsing="false" text="enhanced" />
-                         <CheckBox fx:id="mapperCheckBox" layoutX="131.0" layoutY="66.0" mnemonicParsing="false" text="mapper" />
-                         <CheckBox fx:id="entityCheckBox" layoutX="30.0" layoutY="102.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="60.0" text="entity" />
-                         <CheckBox fx:id="queryCheckBox" layoutX="363.0" layoutY="66.0" mnemonicParsing="false" text="query" />
-                         <CheckBox fx:id="reqCheckBox" layoutX="250.0" layoutY="102.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="101.0" text="RequestBean" />
-                         <CheckBox fx:id="respCheckBox" layoutX="365.0" layoutY="102.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="116.0" text="ResponseBean" />
-                         <CheckBox layoutX="250.0" layoutY="66.0" mnemonicParsing="false" text="xml" fx:id="xmlCheckBox" />
+                         <CheckBox fx:id="controllerCheckBox" layoutX="31.0" layoutY="33.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" selected="false" text="controller" />
+                         <CheckBox fx:id="remoteCheckBox" layoutX="131.0" layoutY="33.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" text="remote" />
+                         <CheckBox fx:id="remoteImplCheckBox" layoutX="250.0" layoutY="33.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" prefHeight="16.0" prefWidth="101.0" text="remoteImpl" />
+                         <CheckBox fx:id="serviceCheckBox" layoutX="363.0" layoutY="33.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" text="service" />
+                         <CheckBox fx:id="serviceImplCheckBox" layoutX="462.0" layoutY="33.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" prefHeight="16.0" prefWidth="101.0" text="serviceImpl" />
+                         <CheckBox fx:id="daoCheckBox" layoutX="30.0" layoutY="66.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" text="dao" />
+                         <CheckBox fx:id="enhancedCheckBox" layoutX="131.0" layoutY="102.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" text="enhanced" />
+                         <CheckBox fx:id="mapperCheckBox" layoutX="131.0" layoutY="66.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" text="mapper" />
+                         <CheckBox fx:id="entityCheckBox" layoutX="30.0" layoutY="102.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" prefHeight="16.0" prefWidth="60.0" text="entity" />
+                         <CheckBox fx:id="queryCheckBox" layoutX="363.0" layoutY="66.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" text="query" />
+                         <CheckBox fx:id="reqCheckBox" layoutX="250.0" layoutY="102.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" prefHeight="16.0" prefWidth="101.0" text="RequestBean" />
+                         <CheckBox fx:id="respCheckBox" layoutX="365.0" layoutY="102.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" prefHeight="16.0" prefWidth="116.0" text="ResponseBean" />
+                         <CheckBox layoutX="250.0" layoutY="66.0" mnemonicParsing="false" onAction="#setSelectTableCheckBox" text="xml" fx:id="xmlCheckBox" />
                         <Button layoutX="33.0" layoutY="144.0" mnemonicParsing="false" onAction="#all" prefHeight="23.0" prefWidth="43.0" text="全选" />
-                         <Button layoutX="135.0" layoutY="144.0" mnemonicParsing="false" onAction="#cancel" text="取消" />
-                        <Separator layoutY="175.0" prefHeight="3.0" prefWidth="780.0" />
-                        <Separator layoutY="535.0" prefHeight="3.0" prefWidth="780.0" />
-                        <SplitPane dividerPositions="0.29797979797979796" layoutY="177.0" prefHeight="360.0" prefWidth="780.0">
+                         <Button layoutX="131.0" layoutY="144.0" mnemonicParsing="false" onAction="#cancel" text="取消" />
+                        <Separator layoutY="175.0" prefHeight="3.0" prefWidth="880.0" />
+                        <SplitPane dividerPositions="0.29797979797979796" layoutY="177.0" prefHeight="488.0" prefWidth="880.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="432.0" SplitPane.resizableWithParent="false">
                                  <children>
-                                    <TableView fx:id="fieldTable" layoutY="-1.0" prefHeight="358.0" prefWidth="229.0">
+                                    <TableView fx:id="fieldTable" layoutX="13.0" prefHeight="486.0" prefWidth="286.0">
                                       <columns>
-                                        <TableColumn fx:id="field" prefWidth="75.0" text="字段" />
-                                        <TableColumn fx:id="fieldType" prefWidth="75.0" text="类型" />
-                                          <TableColumn fx:id="fieldoperate" prefWidth="82.0" text="配置" />
+                                        <TableColumn fx:id="field" prefWidth="128.0" text="字段" />
+                                        <TableColumn fx:id="fieldType" text="类型" />
+                                          <TableColumn fx:id="fieldOperate" prefWidth="76.0" text="配置" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                            <AnchorPane fx:id="rightFieldEdit" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="570.0">
+                            </AnchorPane>
                           </items>
                         </SplitPane>
+                        <Button layoutX="176.0" layoutY="694.0" mnemonicParsing="false" text="配置方法" />
+                        <Button layoutX="643.0" layoutY="694.0" mnemonicParsing="false" text="生成代码" />
 
                      </children>
                   </Pane>

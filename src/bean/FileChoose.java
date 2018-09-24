@@ -23,6 +23,7 @@ public class FileChoose {
     private boolean req = false;
     private boolean resp = false;
     private boolean xml = false;
+    private boolean query = false;
 
     public void all(){
         this.controller = true;
@@ -37,6 +38,7 @@ public class FileChoose {
         this.req = true;
         this.resp = true;
         this.xml = true;
+        this.query = true;
     }
 
     public void cancel(){
@@ -52,6 +54,7 @@ public class FileChoose {
         this.req = false;
         this.resp = false;
         this.xml = false;
+        this.query = false;
     }
 
 }

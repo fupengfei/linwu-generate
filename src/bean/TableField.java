@@ -1,12 +1,30 @@
 package bean;
 
+import cache.Cache;
+import com.google.common.collect.Table;
+import contants.Constant;
 import contants.DbColumnType;
+import controller.ChooseTableController;
+import controller.FieldEnumController;
+import controller.MainController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
+import utils.UI;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ：ZhangLei
@@ -23,11 +41,44 @@ public class TableField {
     private DbColumnType columnType;
     private String comment;
     private String tabObj;
-    private ListView listView;
+    private ChoiceBox choiceBox = new ChoiceBox();
 
-    public void initListView(){
-        ObservableList<String> strList = FXCollections.observableArrayList("红色","黄色","绿色");
-        this.listView = new ListView();
-        this.listView.setItems(strList);
+    public TableField(){
+        initChoiceBox();
     }
+
+    public void initChoiceBox(){
+        List<String> collect = new ArrayList<>();
+        collect.add("不配置");
+        collect.add("关联对象");
+        collect.add("选择枚举");
+        choiceBox.setItems(FXCollections.observableArrayList(collect));
+        SingleSelectionModel selectionModel = choiceBox.getSelectionModel();
+        selectionModel.select(0);
+        choiceBox.setSelectionModel(selectionModel);
+
+
+        //选择框索引被选择事件
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldNum, Number newNum) {
+                //选择关联对象  加载关联对象窗口
+                if(newNum.intValue()==1){
+
+                }
+                //选择枚举   加载枚举窗口
+                if(newNum.intValue()==2){
+                    Table<String, Object, Object> guavaTable = Cache.getGuavaTable();
+                    Pane pane  = (Pane) guavaTable.get(Constant.FIELD_ENUM_PAN,Constant.FIELD_ENUM_PAN);
+                    AnchorPane rightFieldEdit = (AnchorPane) guavaTable.get(Constant.RIGHT_FIELD_EDIT_PAN, Constant.RIGHT_FIELD_EDIT_PAN);
+                    ObservableList<Node> children = rightFieldEdit.getChildren();
+                    children.clear();
+                    children.add(pane);
+                }
+
+            }
+        });
+    }
+
+
 }
