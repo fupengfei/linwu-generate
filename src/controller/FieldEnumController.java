@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.net.URL;
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.ResourceBundle;
  * @Date 2018/9/24/024
  * @Description
  */
+@Getter
+@Setter
 public class FieldEnumController  extends BaseController implements Initializable {
     @FXML
     private TableView enumTable;
@@ -43,15 +47,9 @@ public class FieldEnumController  extends BaseController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //缓存中的通用枚举列表
-        Map<Object, Object> row = Cache.getGuavaTable().row(Constant.ENUM_JSON);
-        if(!row.isEmpty()){
-            row.forEach((k,v)->{
-                EnumBean v1 = (EnumBean) v;
-                v1.initTableView(enumTable);
-                enumBeans.add((EnumBean) v);
-            });
-        }
+        Cache.getGuavaTable().put(Constant.FieldEnumController,Constant.FieldEnumController,this);
+        refreshEnums();
+
 
         fieldEnumColumn.setCellValueFactory(new PropertyValueFactory("className"));
         fieldOperateColumn.setCellValueFactory(new PropertyValueFactory("selectButton"));
@@ -64,6 +62,20 @@ public class FieldEnumController  extends BaseController implements Initializabl
 
         enumName.setCellValueFactory(new PropertyValueFactory("code"));
         enumValue.setCellValueFactory(new PropertyValueFactory("msg"));
+    }
+
+    public void refreshEnums() {
+        enumBeans.clear();
+        //缓存中的通用枚举列表
+        Map<Object, Object> row = Cache.getGuavaTable().row(Constant.ENUM_JSON);
+        if(!row.isEmpty()){
+            row.forEach((k,v)->{
+                EnumBean v1 = (EnumBean) v;
+                v1.initTableView(enumTable);
+                v1.initSelectButton();
+                enumBeans.add((EnumBean) v);
+            });
+        }
     }
 
     /**右侧窗体枚举详情

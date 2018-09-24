@@ -75,7 +75,7 @@ public class TableGenerateController extends BaseController implements Initializ
     private CheckBox queryCheckBox;
 
     @FXML
-    private TableView fieldTable;
+    public  TableView fieldTable;
     @FXML
     private TableColumn field;
     @FXML
@@ -88,6 +88,7 @@ public class TableGenerateController extends BaseController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Cache.getGuavaTable().get(Constant.FIELD_ENUM_PAN,Constant.FIELD_ENUM_PAN);
+        Cache.getGuavaTable().put(Constant.FIELD_TABLE,Constant.FIELD_TABLE,fieldTable);
         Cache.getGuavaTable().put(Constant.RIGHT_FIELD_EDIT_PAN,Constant.RIGHT_FIELD_EDIT_PAN,rightFieldEdit);
         initTableView();
         initFieldEnumFXML();
@@ -101,22 +102,12 @@ public class TableGenerateController extends BaseController implements Initializ
         table.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showTableDetail((Table) newValue));
 
-        //表字段被选中右侧展示
         fieldTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    //当前字段的配置状态
-                    TableField field = (TableField) newValue;
-                    int index = field.getChoiceBox().getSelectionModel().getSelectedIndex();
-                    //展示窗体，选中窗体
-                    if(index==1){}
-                    if(index==2){
-                        Pane pane  = (Pane) Cache.getGuavaTable().get(Constant.FIELD_ENUM_PAN,Constant.FIELD_ENUM_PAN);
-                        ObservableList<Node> children = rightFieldEdit.getChildren();
-                        children.clear();
-                        children.add(pane);
-                    }
-                });
+                (observable, oldValue, newValue) -> showTableFieldDetail((TableField) newValue));
+
+
     }
+
 
     /**
      * 映射表格列与对象
@@ -183,10 +174,6 @@ public class TableGenerateController extends BaseController implements Initializ
         fileChoose.setQuery(queryCheckBox.isSelected());
     }
 
-
-
-
-
     /**全取
      * @param actionEvent
      */
@@ -213,7 +200,6 @@ public class TableGenerateController extends BaseController implements Initializ
         t.getFileChoose().cancel();
     }
 
-
     private void showTableDetail(Table table){
         //表字段展示
         field.setCellValueFactory(new PropertyValueFactory("name"));
@@ -223,6 +209,8 @@ public class TableGenerateController extends BaseController implements Initializ
         tableFieldList.clear();
         List<TableField> fieldInfoList = table.getFieldInfoList();
         tableFieldList.addAll(fieldInfoList);
+        //方式当前字段表格对象，为了比对是哪一行的字段需要配置
+        tableFieldList.forEach(field->field.setTableView(fieldTable));
         fieldTable.setItems(tableFieldList);
 
         //生成文件展示
@@ -252,11 +240,54 @@ public class TableGenerateController extends BaseController implements Initializ
             FieldEnumController controller = loader.getController();
             controller.setRootStage(rootStage);
             controller.setRootBorderPane(rootBorderPane);
-
-
         } catch (IOException e) {
             UI.alertErrorMessage(String.format("加载field-enum失败：%s",e.getMessage()));
         }
+    }
+
+    /**展示已经配置的枚举字段详情
+     * @param field
+     */
+    private void showTableFieldDetail(TableField field) {
+        ObservableList<Node> children1 = rightFieldEdit.getChildren();
+        if(children1.size()>0){
+            rightFieldEdit.getChildren().remove(0);
+        }
+
+        int index = field.getChoiceBox().getSelectionModel().getSelectedIndex();
+
+        ObservableList<Node> children = rightFieldEdit.getChildren();
+        for (int i = 0; i < children.size(); i++) {
+            children.remove(i);
+        }
+        if(index==1){
+            return;
+        }
+        FieldEnumController fieldEnumController = (FieldEnumController) Cache.getGuavaTable().get(Constant.FieldEnumController, Constant.FieldEnumController);
+        if(index==2){
+            EnumBean enumBean = field.getEnumBean();
+            Pane pane = (Pane) Cache.getGuavaTable().get(Constant.FIELD_ENUM_PAN, Constant.FIELD_ENUM_PAN);
+            pane.getChildren().forEach(child->{
+                if("enumTable".equals(child.getId())){
+                    //字段选择枚举配，未选择任何枚举则刷新枚举列表
+                    if(enumBean==null){
+                        if(enumBean==null){
+                            fieldEnumController.refreshEnums();
+                            return;
+                        }
+                    }else{
+                        //显示选择的枚举
+                        TableView enumTable = (TableView) child;
+                        ObservableList items = enumTable.getItems();
+                        items.clear();
+                        items.add(enumBean);
+                    }
+                }
+            });
+            children.add(pane);
+            return;
+        }
+        fieldEnumController.refreshEnums();
     }
 
 }

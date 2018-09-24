@@ -8,12 +8,19 @@ import java.nio.charset.Charset;
  * @description :
  */
 public class Constant {
+    public static final String FieldEnumController = "FieldEnumController";
+
+
     public static final String ENUM_JSON = "enum_json";
     public static final String ENUM_PROPERTIES = "enum_properties";
     public static final String DB = "DB";
     public static final String TABLE_CONFIG = "tableConfig";
     public static final String GLOBAL_CONFIG = "GlobalConfig";
 
+
+    public static final String FIELD_INDEX = "field-index";
+
+    public static final String FIELD_TABLE = "fieldTable-enum";
 
 
     public static final String FIELD_ENUM_PAN = "field-enum";

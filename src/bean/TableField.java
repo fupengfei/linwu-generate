@@ -13,9 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
@@ -42,6 +40,8 @@ public class TableField {
     private String comment;
     private String tabObj;
     private ChoiceBox choiceBox = new ChoiceBox();
+    private EnumBean enumBean;
+    private TableView fieldTable;
 
     public TableField(){
         initChoiceBox();
@@ -74,11 +74,21 @@ public class TableField {
                     ObservableList<Node> children = rightFieldEdit.getChildren();
                     children.clear();
                     children.add(pane);
-                }
 
+                    //缓存当前字段需要配置的索引
+                    for (int i = 0; i <fieldTable.getItems().size(); i++) {
+                        TableField f = (TableField) fieldTable.getItems().get(i);
+                        if(f.getChoiceBox().equals(choiceBox)){
+                            guavaTable.put(Constant.FIELD_INDEX,Constant.FIELD_INDEX,i);
+                        }
+                    }
+                }
             }
         });
     }
 
+    public void setTableView(TableView fieldTable){
+        this.fieldTable = fieldTable;
+    }
 
 }
