@@ -4,6 +4,7 @@ import cache.Cache;
 import com.google.common.collect.Table;
 import com.google.gson.annotations.Expose;
 import contants.Constant;
+import controller.FieldEnumController;
 import controller.TableGenerateController;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -57,6 +58,10 @@ public class EnumBean {
                     int fileldIndex = (int) guavaTable.get(Constant.FIELD_INDEX, Constant.FIELD_INDEX);
                     TableField field = (TableField) fieldTableView.getItems().get(fileldIndex);
                     field.setEnumBean(this);
+
+                    //清除非当前选择的枚举
+                    FieldEnumController fieldEnumController = (FieldEnumController) Cache.getGuavaTable().get(Constant.FieldEnumController, Constant.FieldEnumController);
+                    fieldEnumController.getEnumBeans().removeIf(bean->!bean.equals(this));
                 }
             }
         });

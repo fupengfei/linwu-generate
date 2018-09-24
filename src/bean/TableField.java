@@ -62,6 +62,10 @@ public class TableField {
         choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldNum, Number newNum) {
+                if(newNum.intValue()==0){
+                    enumBean = null;
+                }
+
                 //选择关联对象  加载关联对象窗口
                 if(newNum.intValue()==1){
 
