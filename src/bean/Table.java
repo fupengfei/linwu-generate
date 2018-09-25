@@ -1,6 +1,10 @@
 package bean;
 
+import cache.Cache;
+import config.TableConfig;
+import contants.Constant;
 import controller.ChooseTableController;
+import controller.ObjectTableFieldController;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -14,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Table {
+    private ImageView filedTableView;
     private ImageView imageView;
     private String name;
     private String comment;
@@ -24,6 +29,7 @@ public class Table {
 
     public Table(){
         this.imageView = new ImageView(new Image(getClass().getResourceAsStream("/resource/table.png")));
+        this.filedTableView = new ImageView(new Image(getClass().getResourceAsStream("/resource/table.png")));
         initAllTableOperate();
         initSelectTableOperate();
     }

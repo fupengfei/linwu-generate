@@ -47,7 +47,7 @@ public class FieldEnumController  extends BaseController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Cache.getGuavaTable().put(Constant.FieldEnumController,Constant.FieldEnumController,this);
+        Cache.getGuavaTable().put(Constant.Controller,Constant.FieldEnumController,this);
         refreshEnums();
 
 

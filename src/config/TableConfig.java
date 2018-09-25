@@ -48,6 +48,7 @@ public class TableConfig {
                 Table table = new Table();
                 table.setName(tableName);
                 table.setComment(comment);
+                tablefieldExcute(table);
                 tables.add(table);
             }
         } catch (SQLException e) {

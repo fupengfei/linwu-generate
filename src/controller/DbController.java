@@ -59,7 +59,7 @@ public class DbController extends BaseController implements Initializable {
      * @param actionEvent
      */
     public void checkDbParasm(ActionEvent actionEvent) {
-        url.setText("jdbc:mysql://localhost:3306/solution");
+        url.setText("jdbc:mysql://localhost:3306/biz");
         username.setText("root");
         password.setText("root");
         dbType.setValue("Mysql");

@@ -60,7 +60,7 @@ public class EnumBean {
                     field.setEnumBean(this);
 
                     //清除非当前选择的枚举
-                    FieldEnumController fieldEnumController = (FieldEnumController) Cache.getGuavaTable().get(Constant.FieldEnumController, Constant.FieldEnumController);
+                    FieldEnumController fieldEnumController = (FieldEnumController) Cache.getGuavaTable().get(Constant.Controller, Constant.FieldEnumController);
                     fieldEnumController.getEnumBeans().removeIf(bean->!bean.equals(this));
                 }
             }

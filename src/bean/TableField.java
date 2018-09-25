@@ -7,6 +7,7 @@ import contants.DbColumnType;
 import controller.ChooseTableController;
 import controller.FieldEnumController;
 import controller.MainController;
+import controller.ObjectTableFieldController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -42,6 +43,7 @@ public class TableField {
     private ChoiceBox choiceBox = new ChoiceBox();
     private EnumBean enumBean;
     private TableView fieldTable;
+    private Button fieldButton;
 
     public TableField(){
         initChoiceBox();
@@ -108,4 +110,19 @@ public class TableField {
         this.fieldTable = fieldTable;
     }
 
+
+    public void initFieldButton(){
+        this.fieldButton = new Button();
+        this.fieldButton.setText("关联");
+        this.fieldButton.setOnMouseClicked(event -> {
+            Table<String, Object, Object> guavaTable = Cache.getGuavaTable();
+            ObjectTableFieldController controller = (ObjectTableFieldController) guavaTable
+                    .get(Constant.Controller, Constant.ObjectTableFieldController);
+            TableView objTable = controller.getObjTable();
+            int index = (int) guavaTable.get(Constant.FIELD_INDEX, Constant.FIELD_INDEX);
+            Object o = objTable.getItems().get(index);
+
+
+        });
+    }
 }

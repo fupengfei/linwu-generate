@@ -92,10 +92,8 @@ public class TableGenerateController extends BaseController implements Initializ
         initTableView();
         initFieldEnumFXML();
         initFieldObjectFXML();
+        tableGenerate.clear();
         tableGenerate.addAll(ChooseTableController.select);
-        TableConfig tableConfig = (TableConfig) Cache.getGuavaTable().get(Constant.TABLE_CONFIG, Constant.TABLE_CONFIG);
-
-        tableGenerate.forEach(table->tableConfig.tablefieldExcute(table));
         table.setItems(tableGenerate);
 
         //表选中右侧展示
@@ -274,7 +272,9 @@ public class TableGenerateController extends BaseController implements Initializ
         if(children1.size()>0){
             rightFieldEdit.getChildren().remove(0);
         }
-
+        if(field==null){
+            return;
+        }
         int index = field.getChoiceBox().getSelectionModel().getSelectedIndex();
 
         ObservableList<Node> children = rightFieldEdit.getChildren();
@@ -284,7 +284,7 @@ public class TableGenerateController extends BaseController implements Initializ
         if(index==1){
             return;
         }
-        FieldEnumController fieldEnumController = (FieldEnumController) Cache.getGuavaTable().get(Constant.FieldEnumController, Constant.FieldEnumController);
+        FieldEnumController fieldEnumController = (FieldEnumController) Cache.getGuavaTable().get(Constant.Controller, Constant.FieldEnumController);
         if(index==2){
             EnumBean enumBean = field.getEnumBean();
             Pane pane = (Pane) Cache.getGuavaTable().get(Constant.FIELD_ENUM_PAN, Constant.FIELD_ENUM_PAN);
@@ -294,7 +294,6 @@ public class TableGenerateController extends BaseController implements Initializ
                     if(enumBean==null){
                         if(enumBean==null){
                             fieldEnumController.refreshEnums();
-                            return;
                         }
                     }else{
                         //显示选择的枚举
