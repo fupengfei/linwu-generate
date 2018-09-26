@@ -16,7 +16,12 @@ public class GlobalConfig {
     private String author;
 
     /**
-     * 开发人员
+     * 模块
      */
     private String parentPackage;
+
+    /**
+     * 开发人员
+     */
+    private String projectTemplate;
 }

@@ -54,7 +54,6 @@ public class TableField {
         SingleSelectionModel selectionModel = choiceBox.getSelectionModel();
         selectionModel.select(0);
         choiceBox.setSelectionModel(selectionModel);
-
         //选择框索引被选择事件
         choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -111,7 +110,6 @@ public class TableField {
     public void setTableView(TableView fieldTable){
         this.fieldTable = fieldTable;
     }
-
 
     public void initFieldButton(){
         this.fieldButton = new Button();

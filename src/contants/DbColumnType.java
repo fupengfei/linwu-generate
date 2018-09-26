@@ -1,6 +1,11 @@
 package contants;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum DbColumnType {
     // 基本类型
     BASE_BYTE("byte", null),
@@ -53,25 +58,4 @@ public enum DbColumnType {
      * 包路径
      */
     private String pkg;
-
-    DbColumnType(String type, String pkg) {
-        this.type = type;
-        this.pkg = pkg;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getPkg() {
-        return pkg;
-    }
-
-    public void setPkg(String pkg) {
-        this.pkg = pkg;
-    }
 }

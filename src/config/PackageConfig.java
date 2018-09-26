@@ -6,31 +6,31 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PackageConfig {
-    private String parent;
+    protected String parent;
 
-    private String remoteApi;
+    protected String remoteApi;
 
-    private String remoteApiImpl;
+    protected String remoteApiImpl;
 
-    private String controller;
+    protected String controller;
 
-    private String service;
+    protected String service;
 
-    private String serviceImpl;
+    protected String serviceImpl;
 
-    private String dao;
+    protected String dao;
 
-    private String mapper;
+    protected String mapper;
 
-    private String xml;
+    protected String xml;
 
-    private String entity;
+    protected String entity;
 
-    private String enhanced;
+    protected String enhanced;
 
-    private String enumPackage;
+    protected String enumPackage;
 
-    private String responseBeanPackage;
+    protected String responseBeanPackage;
 
-    private String requestBeanPackage;
+    protected String requestBeanPackage;
 }

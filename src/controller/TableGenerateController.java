@@ -7,6 +7,7 @@ import bean.TableField;
 import cache.Cache;
 import config.TableConfig;
 import contants.Constant;
+import engine.FreemarkerTemplateEngine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -327,4 +328,35 @@ public class TableGenerateController extends BaseController implements Initializ
         }
     }
 
+    /**
+     * 代码生成
+     */
+    public void generate(ActionEvent event) throws Exception {
+        int selectedIndex = table.getSelectionModel().getSelectedIndex();
+        if(selectedIndex<0){
+            return;
+        }
+        Table table = tableGenerate.get(selectedIndex);
+        table.getFieldInfoList().forEach(bean->{
+            int index = bean.getChoiceBox().getSelectionModel().getSelectedIndex();
+            if(index==1){
+                if(bean.getObjTable()==null){
+                    UI.alertErrorMessage(String.format("字段关联对象未选择表：字段名 %s", bean.getName()));
+                    return;
+                }
+                if(bean.getObjField()==null){
+                    UI.alertErrorMessage(String.format("字段关联对象未选择关联表的关联字段：字段名 %s", bean.getName()));
+                    return;
+                }
+            }
+            if(index==2){
+                if(bean.getEnumBean()==null){
+                    UI.alertErrorMessage(String.format("字段配置枚举未选择枚举：字段名 %s", bean.getName()));
+                    return;
+                }
+            }
+        });
+
+        FreemarkerTemplateEngine.writer(table);
+    }
 }

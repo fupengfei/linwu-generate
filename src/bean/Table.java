@@ -1,10 +1,9 @@
 package bean;
 
-import cache.Cache;
-import config.TableConfig;
-import contants.Constant;
+import config.FilePath;
+import config.SolutionFilePathConfig;
+import config.PackageConfig;
 import controller.ChooseTableController;
-import controller.ObjectTableFieldController;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -26,6 +25,8 @@ public class Table {
     private Button allTableOperate;
     private Button selectTableOperate;
     private FileChoose fileChoose = new FileChoose();
+    private FilePath filePath;
+    private PackageConfig packageConfig;
 
     public Table(){
         this.imageView = new ImageView(new Image(getClass().getResourceAsStream("/resource/table.png")));

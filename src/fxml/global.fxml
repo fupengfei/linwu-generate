@@ -6,7 +6,6 @@
 <?import com.sun.javafx.scene.control.skin.TableHeaderRow?>
 <?import javafx.collections.FXCollections?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1118.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GlobalController">
    <children>
       <Pane layoutX="14.0" layoutY="41.0" prefHeight="763.0" prefWidth="1118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -14,7 +13,9 @@
             <TextField fx:id="filePath" layoutX="356.0" layoutY="44.0" promptText="文件输出路径" />
             <TextField fx:id="parentPackage" layoutX="356.0" layoutY="107.0" promptText="顶级包名" />
             <TextField fx:id="author" layoutX="356.0" layoutY="174.0" promptText="作者" />
-            <Button layoutX="399.0" layoutY="256.0" mnemonicParsing="false" text="Button" onAction="#next"/>
+            <Button layoutX="404.0" layoutY="281.0" mnemonicParsing="false" onAction="#next" text="确定" />
+            <RadioButton fx:id="solution" layoutX="356.0" layoutY="237.0" mnemonicParsing="false" text="方案馆生成" />
+            <RadioButton fx:id="wy" layoutX="444.0" layoutY="237.0" mnemonicParsing="false" text="众包馆生成" />
          </children>
       </Pane>
    </children>

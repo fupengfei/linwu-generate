@@ -31,4 +31,8 @@ public class Constant {
     public static final String UTF8 = Charset.forName("UTF-8").name();
     public static final String SLASH = "/";
     public static final String POINT = "\\.";
+
+
+    public static final String SOLUTION = "solution";
+    public static final String WY = "wy";
 }
