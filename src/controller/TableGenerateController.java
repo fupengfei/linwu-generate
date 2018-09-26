@@ -87,6 +87,7 @@ public class TableGenerateController extends BaseController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Cache.getGuavaTable().put(Constant.Controller,Constant.TableGenerateController,this);
         Cache.getGuavaTable().put(Constant.FIELD_TABLE,Constant.FIELD_TABLE,fieldTable);
         Cache.getGuavaTable().put(Constant.RIGHT_FIELD_EDIT_PAN,Constant.RIGHT_FIELD_EDIT_PAN,rightFieldEdit);
         initTableView();
@@ -281,9 +282,29 @@ public class TableGenerateController extends BaseController implements Initializ
         for (int i = 0; i < children.size(); i++) {
             children.remove(i);
         }
+
+        //展示对应字段的关联配置情况   枚举或对象关联
+        ObjectTableFieldController objectTableFieldController = (ObjectTableFieldController) Cache.getGuavaTable().get(Constant.Controller, Constant.ObjectTableFieldController);
         if(index==1){
-            return;
+            Table objTable = field.getObjTable();
+            field.getObjField();
+            Pane pane = (Pane) Cache.getGuavaTable().get(Constant.OBJ_TABLE_FIELD_PAN, Constant.OBJ_TABLE_FIELD_PAN);
+            pane.getChildren().forEach(child->{
+                if("objTable".equals(child.getId())){
+                    //字段选择关联对象，刷新表
+                    if(objTable==null){
+                        objectTableFieldController.refershTables();
+                    }else{
+                        objectTableFieldController.getTableList().clear();
+                        objectTableFieldController.getTableList().add(objTable);
+                        objectTableFieldController.getTableFieldList().clear();
+                        objectTableFieldController.getTableFieldList().add(field.getObjField());
+                    }
+                }
+            });
+            children.add(pane);
         }
+
         FieldEnumController fieldEnumController = (FieldEnumController) Cache.getGuavaTable().get(Constant.Controller, Constant.FieldEnumController);
         if(index==2){
             EnumBean enumBean = field.getEnumBean();
@@ -292,9 +313,7 @@ public class TableGenerateController extends BaseController implements Initializ
                 if("enumTable".equals(child.getId())){
                     //字段选择枚举配，未选择任何枚举则刷新枚举列表
                     if(enumBean==null){
-                        if(enumBean==null){
-                            fieldEnumController.refreshEnums();
-                        }
+                        fieldEnumController.refreshEnums();
                     }else{
                         //显示选择的枚举
                         TableView enumTable = (TableView) child;
@@ -305,9 +324,7 @@ public class TableGenerateController extends BaseController implements Initializ
                 }
             });
             children.add(pane);
-            return;
         }
-        fieldEnumController.refreshEnums();
     }
 
 }

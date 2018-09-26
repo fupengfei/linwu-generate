@@ -50,7 +50,6 @@ public class FieldEnumController  extends BaseController implements Initializabl
         Cache.getGuavaTable().put(Constant.Controller,Constant.FieldEnumController,this);
         refreshEnums();
 
-
         fieldEnumColumn.setCellValueFactory(new PropertyValueFactory("className"));
         fieldOperateColumn.setCellValueFactory(new PropertyValueFactory("selectButton"));
         enumTable.setItems(enumBeans);

@@ -4,24 +4,18 @@ import cache.Cache;
 import com.google.common.collect.Table;
 import contants.Constant;
 import contants.DbColumnType;
-import controller.ChooseTableController;
-import controller.FieldEnumController;
-import controller.MainController;
 import controller.ObjectTableFieldController;
+import controller.TableGenerateController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
-import utils.UI;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +35,11 @@ public class TableField {
     private String comment;
     private String tabObj;
     private ChoiceBox choiceBox = new ChoiceBox();
-    private EnumBean enumBean;
     private TableView fieldTable;
     private Button fieldButton;
+    private EnumBean enumBean;
+    private TableField objField;
+    private bean.Table objTable;
 
     public TableField(){
         initChoiceBox();
@@ -59,23 +55,28 @@ public class TableField {
         selectionModel.select(0);
         choiceBox.setSelectionModel(selectionModel);
 
-
         //选择框索引被选择事件
         choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldNum, Number newNum) {
                 if(newNum.intValue()==0){
                     enumBean = null;
+                    objField = null;
+                    objTable = null;
                 }
 
                 //选择关联对象  加载关联对象窗口
                 if(newNum.intValue()==1){
+
                     Table<String, Object, Object> guavaTable = Cache.getGuavaTable();
                     Pane pane  = (Pane) guavaTable.get(Constant.OBJ_TABLE_FIELD_PAN,Constant.OBJ_TABLE_FIELD_PAN);
                     AnchorPane rightFieldEdit = (AnchorPane) guavaTable.get(Constant.RIGHT_FIELD_EDIT_PAN, Constant.RIGHT_FIELD_EDIT_PAN);
                     ObservableList<Node> children = rightFieldEdit.getChildren();
                     children.clear();
                     children.add(pane);
+
+                    ObjectTableFieldController objectTableFieldController = (ObjectTableFieldController) guavaTable.get(Constant.Controller, Constant.ObjectTableFieldController);
+                    objectTableFieldController.refershTables();
 
                     //缓存当前字段需要配置的索引
                     for (int i = 0; i <fieldTable.getItems().size(); i++) {
@@ -85,6 +86,7 @@ public class TableField {
                         }
                     }
                 }
+
                 //选择枚举   加载枚举窗口
                 if(newNum.intValue()==2){
                     Table<String, Object, Object> guavaTable = Cache.getGuavaTable();
@@ -118,11 +120,32 @@ public class TableField {
             Table<String, Object, Object> guavaTable = Cache.getGuavaTable();
             ObjectTableFieldController controller = (ObjectTableFieldController) guavaTable
                     .get(Constant.Controller, Constant.ObjectTableFieldController);
-            TableView objTable = controller.getObjTable();
-            int index = (int) guavaTable.get(Constant.FIELD_INDEX, Constant.FIELD_INDEX);
-            Object o = objTable.getItems().get(index);
 
+            ObservableList<TableField> tableFieldList = controller.getTableFieldList();
+            for (int i = 0; i < tableFieldList.size(); i++) {
+                //当前选择的关联字段与this匹配
+                if(this.equals(tableFieldList.get(i))){
+                    TableView objTable = controller.getObjTable();
+                    //获取选择关联的表
+                    int fieldTableSelectIndex = objTable.getSelectionModel().getSelectedIndex();
+                    if(fieldTableSelectIndex<0){
+                        return;
+                    }
+                    bean.Table table = (bean.Table) objTable.getItems().get(fieldTableSelectIndex);
 
+                    //具体是哪一个字段需要设置了关联对象 的字段索引
+                    int fieldIndex = (int) guavaTable.get(Constant.FIELD_INDEX, Constant.FIELD_INDEX);
+                    TableGenerateController tableGenerateController = (TableGenerateController) Cache.getGuavaTable().get(Constant.Controller, Constant.TableGenerateController);
+                    //
+                    ObservableList<TableField> tableFieldList1 = tableGenerateController.getTableFieldList();
+                    TableField tableField = tableFieldList1.get(fieldIndex);
+                    tableField.setObjTable(table);
+                    tableField.setObjField(this);
+                    //清除关联非关联对象字段
+                    controller.getTableFieldList().removeIf(bean->!bean.equals(this));
+                    controller.getTableList().removeIf(bean->!bean.equals(table));
+                }
+            }
         });
     }
 }

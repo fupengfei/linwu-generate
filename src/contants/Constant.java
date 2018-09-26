@@ -11,6 +11,7 @@ public class Constant {
     public static final String Controller = "Controller";
     public static final String FieldEnumController = "FieldEnumController";
     public static final String ObjectTableFieldController = "ObjectTableFieldController";
+    public static final String TableGenerateController = "TableGenerateController";
 
 
     public static final String ENUM_JSON = "enum_json";
