@@ -33,7 +33,6 @@ public class ObjectTableFieldController extends BaseController implements Initia
     private TableColumn tablePic;
     @FXML
     private TableColumn tableName;
-
     @FXML
     private TableView fieldTable;
     @FXML
