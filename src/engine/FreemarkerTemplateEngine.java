@@ -5,7 +5,9 @@ import bean.FileChoose;
 import bean.Table;
 import cache.Cache;
 import com.google.common.base.CaseFormat;
+import config.FilePathConfig;
 import config.GlobalConfig;
+import config.TemplateConfig;
 import contants.Constant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -25,10 +27,21 @@ public class FreemarkerTemplateEngine {
     static {
         configuration = new Configuration();
         configuration.setDefaultEncoding(Constant.UTF8);
-        configuration.setClassForTemplateLoading(FreemarkerTemplateEngine.class, Constant.SLASH);
+        try {
+            configuration.setDirectoryForTemplateLoading(new File("template/"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void writer(FileBuilder builder) throws Exception {
+        GlobalConfig globalConfig = builder.getGlobalConfig();
+        String outputDir = globalConfig.getOutputDir();
+        FilePathConfig filePathConfig = globalConfig.getFilePathConfig();
+        TemplateConfig templateConfig = globalConfig.getTemplateConfig();
+
+//        cfg.setDirectoryForTemplateLoading(new File("template/od_sy/main"));
+
         //文件夹是否存在
         Table table = builder.getTable();
         FileChoose fileChoose = table.getFileChoose();
@@ -42,7 +55,11 @@ public class FreemarkerTemplateEngine {
         if(fileChoose.isDao()){}
         if(fileChoose.isMapper()){}
         if(fileChoose.isXml()){}
-        if(fileChoose.isEntity()){}
+        if(fileChoose.isEntity()){
+            String format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getEntityPath(), table.getFile(),".java");
+            //文件名
+            createFile(builder,templateConfig.getEntity(),format);
+        }
         if(fileChoose.isEnhanced()){}
 
 
@@ -53,6 +70,7 @@ public class FreemarkerTemplateEngine {
     }
 
     public static void createFile(FileBuilder fileBuilder,String templatePath,String outputFile) throws IOException, TemplateException {
+        makeDir(new File(outputFile));
         Template template = configuration.getTemplate(templatePath);
         FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFile));
         template.process(fileBuilder, new OutputStreamWriter(fileOutputStream, Constant.UTF8));
@@ -64,9 +82,7 @@ public class FreemarkerTemplateEngine {
         File parentFile = file.getParentFile();
         boolean exists = parentFile.exists();
         if(!exists){
-            parentFile.mkdir();
-            makeDir(file.getParentFile());
-            file.createNewFile();
+            parentFile.mkdirs();
         }
     }
 }

@@ -12,8 +12,7 @@ import lombok.Setter;
 @Setter
 public class TemplateConfig {
 
-    private static String path = String
-            .format("%s%s", TemplateConfig.class.getResource("/").getPath(), "resource/template/");
+    private static String path;
 
     private String remoteApi;
 
@@ -42,14 +41,14 @@ public class TemplateConfig {
     private String request;
 
     public void initWy() {
-        path = path + "od_sy";
+        path = path + "/od_sy/";
         getTemplate();
     }
 
 
 
     public void initSolution() {
-        path = path + "solution";
+        path = path + "/solution/";
         getTemplate();
     }
 

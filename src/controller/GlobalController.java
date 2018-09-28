@@ -96,12 +96,12 @@ public class GlobalController extends BaseController implements Initializable {
         globalConfig.setTemplateConfig(templateConfig);
 
         if(Constant.SOLUTION.equals(selecte.getId())){
-            filePathConfig.initSolutionPath(parentPackage.getText());
+            filePathConfig.initSolutionPath();
             packageConfig.initSolution(parentPackage.getText());
             templateConfig.initSolution();
         }
         if(Constant.WY.equals(selecte.getId())){
-            filePathConfig.initWyPath(parentPackage.getText());
+            filePathConfig.initWyPath();
             packageConfig.initWy(parentPackage.getText());
             templateConfig.initWy();
         }

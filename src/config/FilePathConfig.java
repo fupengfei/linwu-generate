@@ -40,35 +40,35 @@ public class FilePathConfig {
 
     private String requestBeanPackagePath;
 
-    public void initWyPath(String parentPackage) {
-        remoteApiPath = String.format("%s/remote/api", parentPackage);
-        remoteApiImplPath = String.format("%s/remote/api/impl", parentPackage);
-        controllerPath = String.format("%s/controller", parentPackage);
-        servicePath = String.format("%s/interfaces", parentPackage);
-        serviceImplPath = String.format("%s/service", parentPackage);
-        daoPath = String.format("%s/dao", parentPackage);
-        mapperPath = String.format("%s/dao", parentPackage);
-        xmlPath = String.format("%s/xml", parentPackage);
-        entityPath = String.format("%s/model/entity", parentPackage);
-        enhancedPath = String.format("%s/model/entity/enhanced", parentPackage);
-        enumPackagePath = String.format("%s/enumcode", parentPackage);
-        responseBeanPackagePath = String.format("%s/model/response", parentPackage);
-        requestBeanPackagePath = String.format("%s/model/request", parentPackage);
+    public void initWyPath() {
+        remoteApiPath = "/remote/api/";
+        remoteApiImplPath = "/remote/api/impl/";
+        controllerPath = "/controller/";
+        servicePath = "/interfaces/";
+        serviceImplPath = "/service/";
+        daoPath = "/dao/";
+        mapperPath = "/dao/";
+        xmlPath = "/xml/";
+        entityPath = "/model/entity/";
+        enhancedPath = "/model/entity/enhanced/";
+        enumPackagePath = "/enumcode/";
+        responseBeanPackagePath = "/model/response/";
+        requestBeanPackagePath = "/model/request/";
     }
 
-    public void initSolutionPath(String parentPackage) {
-        remoteApiPath = String.format("%s/remote/api", parentPackage);
-        remoteApiImplPath = String.format("%s/remote/api/impl", parentPackage);
-        controllerPath = String.format("%s/controller", parentPackage);
-        servicePath = String.format("%s/interfaces", parentPackage);
-        serviceImplPath = String.format("%s/service", parentPackage);
-        daoPath = String.format("%s/persistence/dao", parentPackage);
-        mapperPath = String.format("%s/persistence/mapper", parentPackage);
-        xmlPath = String.format("%s/xml", parentPackage);
-        entityPath = String.format("%s/bean/po", parentPackage);
-        enhancedPath = String.format("%s/bean/enhanced", parentPackage);
-        enumPackagePath = String.format("%s/bean/enums", parentPackage);
-        responseBeanPackagePath = String.format("%s/bean/resp", parentPackage);
-        requestBeanPackagePath = String.format("%s/bean/req", parentPackage);
+    public void initSolutionPath() {
+        remoteApiPath = String.format("/remote/api/");
+        remoteApiImplPath = String.format("/remote/api/impl/");
+        controllerPath = String.format("/controller/");
+        servicePath = String.format("/interfaces/");
+        serviceImplPath = String.format("/service/");
+        daoPath = String.format("/persistence/dao/ ");
+        mapperPath = String.format("/persistence/mapper/");
+        xmlPath = String.format("/xml/");
+        entityPath = String.format("/bean/po/");
+        enhancedPath = String.format("/bean/enhanced/");
+        enumPackagePath = String.format("/bean/enums/");
+        responseBeanPackagePath = String.format("/bean/resp/");
+        requestBeanPackagePath = String.format("/bean/req/");
     }
 }
