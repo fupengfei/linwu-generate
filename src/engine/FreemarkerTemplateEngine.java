@@ -1,5 +1,7 @@
 package engine;
 
+import bean.FileBuilder;
+import bean.FileChoose;
 import bean.Table;
 import cache.Cache;
 import com.google.common.base.CaseFormat;
@@ -7,6 +9,7 @@ import config.GlobalConfig;
 import contants.Constant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,47 +28,45 @@ public class FreemarkerTemplateEngine {
         configuration.setClassForTemplateLoading(FreemarkerTemplateEngine.class, Constant.SLASH);
     }
 
-    public static void writer(Table table) throws Exception {
-        GlobalConfig global = (GlobalConfig) Cache.getGuavaTable().get(Constant.GLOBAL_CONFIG, Constant.GLOBAL_CONFIG);
-        String projectTemplate = global.getProjectTemplate();
-        String path = FreemarkerTemplateEngine.class.getResource("/").getPath();
-        path = String.format("%s%s",path, "resource/template/");
-        //方案管
-        if(Constant.SOLUTION.equals(projectTemplate)){
-            path=path+"solution/";
+    public static void writer(FileBuilder builder) throws Exception {
+        //文件夹是否存在
+        Table table = builder.getTable();
+        FileChoose fileChoose = table.getFileChoose();
+        if(fileChoose.isRemote()){
+
         }
-        //众包
-        if(Constant.WY.equals(projectTemplate)){
-            path=path+"od_sy/";
-        }
+        if(fileChoose.isRemoteImpl()){}
+        if(fileChoose.isController()){}
+        if(fileChoose.isService()){}
+        if(fileChoose.isServiceImpl()){}
+        if(fileChoose.isDao()){}
+        if(fileChoose.isMapper()){}
+        if(fileChoose.isXml()){}
+        if(fileChoose.isEntity()){}
+        if(fileChoose.isEnhanced()){}
 
 
-
-//        String controllerFileName = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, table.getName())+Constant.Controller;
-        String entityFileName = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, table.getName());
-        createFile(table,,global.getOutputDir()+);
-
+        if(fileChoose.isReq()){}
+        if(fileChoose.isResp()){}
+        if(fileChoose.isQuery()){}
 
     }
 
-    public void createFile(Object obj,String templatePath,String outputFile) throws Exception {
+    public static void createFile(FileBuilder fileBuilder,String templatePath,String outputFile) throws IOException, TemplateException {
         Template template = configuration.getTemplate(templatePath);
         FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFile));
-        template.process(obj, new OutputStreamWriter(fileOutputStream, Constant.UTF8));
+        template.process(fileBuilder, new OutputStreamWriter(fileOutputStream, Constant.UTF8));
         fileOutputStream.close();
     }
 
-    public void makeDir(File file) {
-        if (file.getParentFile().exists()) {
-            file.mkdir();
-        } else {
-            makeDir(file.getParentFile());
-            file.mkdir();
-        }
-    }
 
-    public static void main(String[] args) {
-        System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "test_data"));
-        System.out.println(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "test_data"));
+    public static void makeDir(File file) throws IOException {
+        File parentFile = file.getParentFile();
+        boolean exists = parentFile.exists();
+        if(!exists){
+            parentFile.mkdir();
+            makeDir(file.getParentFile());
+            file.createNewFile();
+        }
     }
 }

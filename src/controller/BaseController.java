@@ -11,6 +11,8 @@ import lombok.Setter;
  * @Date 2018/9/21/021
  * @Description
  */
+@Getter
+@Setter
 public class BaseController {
     /**主舞台
      * @param rootStage
@@ -21,20 +23,4 @@ public class BaseController {
      */
     @FXML
     protected BorderPane rootBorderPane;
-
-    public Stage getRootStage() {
-        return rootStage;
-    }
-
-    public void setRootStage(Stage rootStage) {
-        this.rootStage = rootStage;
-    }
-
-    public BorderPane getRootBorderPane() {
-        return rootBorderPane;
-    }
-
-    public void setRootBorderPane(BorderPane rootBorderPane) {
-        this.rootBorderPane = rootBorderPane;
-    }
 }

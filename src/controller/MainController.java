@@ -30,7 +30,7 @@ public class MainController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Cache.getGuavaTable().put(Constant.Controller,Constant.MainController,this);
     }
 
     /**

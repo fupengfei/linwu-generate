@@ -5,13 +5,11 @@ import com.google.common.collect.Table;
 import com.google.gson.annotations.Expose;
 import contants.Constant;
 import controller.FieldEnumController;
-import controller.TableGenerateController;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -48,11 +48,13 @@ public class ChooseTableController extends BaseController implements Initializab
     @FXML
     private TableColumn selectTableOperate;
 
-    public static final ObservableList<Table> all = FXCollections.observableArrayList();
-    public static final ObservableList<Table> select = FXCollections.observableArrayList();
+    private  final ObservableList<Table> all = FXCollections.observableArrayList();
+    private  final ObservableList<Table> select = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Cache.getGuavaTable().put(Constant.Controller,Constant.ChooseTableController,this);
+
         initTableView();
 
         TableConfig tableConfig = (TableConfig) Cache.getGuavaTable().get(Constant.TABLE_CONFIG, Constant.TABLE_CONFIG);

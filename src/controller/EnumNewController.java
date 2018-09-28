@@ -62,6 +62,8 @@ public class EnumNewController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Cache.getGuavaTable().put(Constant.Controller,Constant.EnumNewController,this);
+
         className.setCellValueFactory(new PropertyValueFactory("className"));
         enumDeleteButton.setCellValueFactory(new PropertyValueFactory("deleteButton"));
 

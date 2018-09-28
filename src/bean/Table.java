@@ -1,8 +1,7 @@
 package bean;
 
-import config.FilePath;
-import config.SolutionFilePathConfig;
-import config.PackageConfig;
+import cache.Cache;
+import contants.Constant;
 import controller.ChooseTableController;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -25,8 +24,7 @@ public class Table {
     private Button allTableOperate;
     private Button selectTableOperate;
     private FileChoose fileChoose = new FileChoose();
-    private FilePath filePath;
-    private PackageConfig packageConfig;
+    private String file;
 
     public Table(){
         this.imageView = new ImageView(new Image(getClass().getResourceAsStream("/resource/table.png")));
@@ -39,12 +37,19 @@ public class Table {
         this.allTableOperate = new Button();
         this.allTableOperate.setText("选择");
         this.allTableOperate.setOnMouseClicked(event -> {
+
             //选择按钮会把图片也移动过去，重新生成一张
             this.imageView = new ImageView(new Image(getClass().getResourceAsStream("/resource/table.png")));
-            ObservableList<Table> select = ChooseTableController.select;
+
+            ChooseTableController chooseTableController = (ChooseTableController) Cache.getGuavaTable().get(Constant.Controller, Constant.ChooseTableController);
+            ObservableList<Table> select = chooseTableController.getSelect();
             if(!select.contains(this)){
                 select.add(this);
             }
+
+            //隐藏
+            this.allTableOperate.setVisible(false);
+            this.allTableOperate.setManaged(false);
         });
     }
 
@@ -52,10 +57,15 @@ public class Table {
         this.selectTableOperate = new Button();
         this.selectTableOperate.setText("移除");
         this.selectTableOperate.setOnMouseClicked(event -> {
-            ObservableList<Table> select = ChooseTableController.select;
+            ChooseTableController chooseTableController = (ChooseTableController) Cache.getGuavaTable().get(Constant.Controller, Constant.ChooseTableController);
+            ObservableList<Table> select = chooseTableController.getSelect();
             if(select.contains(this)){
                 select.remove(this);
             }
+
+            //展示
+            this.allTableOperate.setVisible(true);
+            this.allTableOperate.setManaged(true);
         });
     }
 }

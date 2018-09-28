@@ -1,28 +1,19 @@
 package controller;
 
 import cache.Cache;
-import config.DbConfig;
+import config.FilePathConfig;
 import config.GlobalConfig;
-import config.SolutionFilePathConfig;
-import config.SolutionPackageConfig;
-import config.TableConfig;
-import config.WyFilePathConfig;
-import config.WyPackageConfig;
+import config.PackageConfig;
+import config.TemplateConfig;
 import contants.Constant;
-import contants.DBTypeEnum;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -54,6 +45,7 @@ public class GlobalController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Cache.getGuavaTable().put(Constant.Controller,Constant.GlobalController,this);
         solution.setToggleGroup(group);
         wy.setToggleGroup(group);
     }
@@ -69,7 +61,6 @@ public class GlobalController extends BaseController implements Initializable {
     }
 
     private boolean check() {
-        //TODO 文件路径非法校验，模块非法校验
         if(StringUtils.isBlank(filePath.getText())){
             UI.alertErrorMessage("输入文件路径");
             return false;
@@ -95,31 +86,25 @@ public class GlobalController extends BaseController implements Initializable {
         globalConfig.setOutputDir(filePath.getText());
         globalConfig.setParentPackage(parentPackage.getText());
         Cache.setGuavaTable(Constant.GLOBAL_CONFIG,Constant.GLOBAL_CONFIG,globalConfig);
-        TableConfig tableConfig = (TableConfig) Cache.getGuavaTable().get(Constant.TABLE_CONFIG, Constant.TABLE_CONFIG);
 
-        //设置需要生成表的路径配置信息
-        tableConfig.getGenerateTables().forEach(bean->{
-            String id = selecte.getId();
-            if(Constant.SOLUTION.equals(id)){
-                SolutionFilePathConfig solutionFilePathConfig = new SolutionFilePathConfig();
-                solutionFilePathConfig.setAllPath(globalConfig.getParentPackage().replace(".","/"));
-                bean.setFilePath(solutionFilePathConfig);
+        FilePathConfig filePathConfig = new FilePathConfig();
+        PackageConfig packageConfig = new PackageConfig();
+        TemplateConfig templateConfig = new TemplateConfig();
 
-                SolutionPackageConfig packageConfig = new SolutionPackageConfig();
-                packageConfig.setAll(globalConfig.getParentPackage());
-                bean.setPackageConfig(packageConfig);
-            }
+        globalConfig.setFilePathConfig(filePathConfig);
+        globalConfig.setPackageConfig(packageConfig);
+        globalConfig.setTemplateConfig(templateConfig);
 
-            if(Constant.WY.equals(id)){
-                WyFilePathConfig wyFilePathConfig = new WyFilePathConfig();
-                wyFilePathConfig.setAllPath(globalConfig.getParentPackage());
-                bean.setFilePath(wyFilePathConfig);
-
-                WyPackageConfig packageConfig = new WyPackageConfig();
-                packageConfig.setAll(globalConfig.getParentPackage());
-                bean.setPackageConfig(packageConfig);
-            }
-        });
+        if(Constant.SOLUTION.equals(selecte.getId())){
+            filePathConfig.initSolutionPath(parentPackage.getText());
+            packageConfig.initSolution(parentPackage.getText());
+            templateConfig.initSolution();
+        }
+        if(Constant.WY.equals(selecte.getId())){
+            filePathConfig.initWyPath(parentPackage.getText());
+            packageConfig.initWy(parentPackage.getText());
+            templateConfig.initWy();
+        }
         return true;
     }
 

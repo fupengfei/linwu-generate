@@ -20,8 +20,13 @@ public class GlobalConfig {
      */
     private String parentPackage;
 
-    /**
-     * 开发人员
-     */
+
     private String projectTemplate;
+
+    private PackageConfig packageConfig;
+
+    private FilePathConfig filePathConfig;
+
+    private TemplateConfig templateConfig;
+
 }

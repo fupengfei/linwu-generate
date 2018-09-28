@@ -52,7 +52,7 @@ public class DbController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Cache.getGuavaTable().put(Constant.Controller,Constant.DbController,this);
     }
 
     /**数据连接校验

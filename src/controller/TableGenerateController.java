@@ -1,10 +1,12 @@
 package controller;
 
 import bean.EnumBean;
+import bean.FileBuilder;
 import bean.FileChoose;
 import bean.Table;
 import bean.TableField;
 import cache.Cache;
+import config.GlobalConfig;
 import config.TableConfig;
 import contants.Constant;
 import engine.FreemarkerTemplateEngine;
@@ -45,9 +47,6 @@ public class TableGenerateController extends BaseController implements Initializ
     private TableColumn tableGeneratePic;
     @FXML
     private TableColumn tableGenerateName;
-    public static final ObservableList<Table> tableGenerate = FXCollections.observableArrayList();
-    public final ObservableList<TableField> tableFieldList = FXCollections.observableArrayList();
-
     @FXML
     private CheckBox controllerCheckBox;
     @FXML
@@ -86,16 +85,24 @@ public class TableGenerateController extends BaseController implements Initializ
     @FXML
     private AnchorPane rightFieldEdit;
 
+    private final ObservableList<Table> tableGenerate = FXCollections.observableArrayList();
+    private final ObservableList<TableField> tableFieldList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Cache.getGuavaTable().put(Constant.Controller,Constant.TableGenerateController,this);
         Cache.getGuavaTable().put(Constant.FIELD_TABLE,Constant.FIELD_TABLE,fieldTable);
         Cache.getGuavaTable().put(Constant.RIGHT_FIELD_EDIT_PAN,Constant.RIGHT_FIELD_EDIT_PAN,rightFieldEdit);
-        initTableView();
+
+        tableGeneratePic.setCellValueFactory(new PropertyValueFactory("imageView"));
+        tableGenerateName.setCellValueFactory(new PropertyValueFactory("name"));
+
         initFieldEnumFXML();
         initFieldObjectFXML();
         tableGenerate.clear();
-        tableGenerate.addAll(ChooseTableController.select);
+
+        ChooseTableController chooseTableController = (ChooseTableController) Cache.getGuavaTable().get(Constant.Controller, Constant.ChooseTableController);
+        tableGenerate.addAll(chooseTableController.getSelect());
         table.setItems(tableGenerate);
 
         //表选中右侧展示
@@ -107,16 +114,6 @@ public class TableGenerateController extends BaseController implements Initializ
 
 
     }
-
-
-    /**
-     * 映射表格列与对象
-     */
-    public void initTableView() {
-        tableGeneratePic.setCellValueFactory(new PropertyValueFactory("imageView"));
-        tableGenerateName.setCellValueFactory(new PropertyValueFactory("name"));
-    }
-
 
     /**全选
      * @param actionEvent
@@ -356,7 +353,10 @@ public class TableGenerateController extends BaseController implements Initializ
                 }
             }
         });
-
-        FreemarkerTemplateEngine.writer(table);
+        GlobalConfig globalConfig = (GlobalConfig) Cache.getGuavaTable().get(Constant.GLOBAL_CONFIG, Constant.GLOBAL_CONFIG);
+        FileBuilder fileBuilder = new FileBuilder();
+        fileBuilder.setGlobalConfig(globalConfig);
+        fileBuilder.setTable(table);
+        FreemarkerTemplateEngine.writer(fileBuilder);
     }
 }

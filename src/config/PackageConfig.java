@@ -6,31 +6,63 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PackageConfig {
-    protected String parent;
+    private String parent;
 
-    protected String remoteApi;
+    private String remoteApi;
 
-    protected String remoteApiImpl;
+    private String remoteApiImpl;
 
-    protected String controller;
+    private String controller;
 
-    protected String service;
+    private String service;
 
-    protected String serviceImpl;
+    private String serviceImpl;
 
-    protected String dao;
+    private String dao;
 
-    protected String mapper;
+    private String mapper;
 
-    protected String xml;
+    private String xml;
 
-    protected String entity;
+    private String entity;
 
-    protected String enhanced;
+    private String enhanced;
 
-    protected String enumPackage;
+    private String enumPackage;
 
-    protected String responseBeanPackage;
+    private String responseBeanPackage;
 
-    protected String requestBeanPackage;
+    private String requestBeanPackage;
+
+    public void initSolution(String parentPackage){
+        remoteApi= String.format("%s.remote.api",parentPackage);
+        remoteApiImpl = String.format("%s.remote.api.impl",parentPackage);
+        controller = String.format("%s.controller",parentPackage);
+        service = String.format("%s.interfaces",parentPackage);
+        serviceImpl = String.format("%s.service",parentPackage);
+//        dao = String.format("%s.dao",parentPackage);
+        mapper = String.format("%s.dao",parentPackage);
+        xml = String.format("%s.xml",parentPackage);
+        entity = String.format("%s.model.entity",parentPackage);
+//        enhanced = String.format("%s.model.entity.enhanced",parentPackage);
+        enumPackage = String.format("%s.enumcode",parentPackage);
+        responseBeanPackage = String.format("%s.model.response",parentPackage);
+        requestBeanPackage = String.format("%s.model.request",parentPackage);
+    }
+
+    public void initWy(String parentPackage){
+        remoteApi = String.format("%s.remote.api",parentPackage);
+        remoteApiImpl = String.format("%s.remote.api.impl",parentPackage);
+        controller = String.format("%s.controller",parentPackage);
+        service = String.format("%s.interfaces",parentPackage);
+        serviceImpl = String.format("%s.service",parentPackage);
+        dao = String.format("%s.persistence.dao",parentPackage);
+        mapper = String.format("%s.persistence.mapper",parentPackage);
+        xml = String.format("%s.xml",parentPackage);
+        entity = String.format("%s.bean.po",parentPackage);
+        enhanced = String.format("%s.bean.po.enhanced",parentPackage);
+        enumPackage = String.format("%s.bean.enums",parentPackage);
+        responseBeanPackage = String.format("%s.bean.model.req",parentPackage);
+        requestBeanPackage = String.format("%s.bean.model.resp",parentPackage);
+    }
 }

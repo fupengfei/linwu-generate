@@ -58,7 +58,6 @@ public class FieldEnumController  extends BaseController implements Initializabl
         enumTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showEnumDetailTable((EnumBean) newValue));
 
-
         enumName.setCellValueFactory(new PropertyValueFactory("code"));
         enumValue.setCellValueFactory(new PropertyValueFactory("msg"));
     }

@@ -8,16 +8,24 @@ import java.nio.charset.Charset;
  * @description :
  */
 public class Constant {
+    //控制器
     public static final String Controller = "Controller";
     public static final String FieldEnumController = "FieldEnumController";
     public static final String ObjectTableFieldController = "ObjectTableFieldController";
     public static final String TableGenerateController = "TableGenerateController";
+    public static final String ChooseTableController = "ChooseTableController";
+    public static final String DbController = "DbController";
+    public static final String EnumListController = "EnumListController";
+    public static final String EnumNewController = "EnumNewController";
+    public static final String GlobalController = "GlobalController";
+    public static final String MainController = "MainController";
 
 
     public static final String ENUM_JSON = "enum_json";
-    public static final String TABLE_CONFIG = "tableConfig";
-    public static final String GLOBAL_CONFIG = "GlobalConfig";
 
+    public static final String TABLE_CONFIG = "tableConfig";
+
+    public static final String GLOBAL_CONFIG = "GlobalConfig";
 
     public static final String FIELD_INDEX = "field-index";
     public static final String FIELD_TABLE = "fieldTable-enum";
@@ -34,7 +42,7 @@ public class Constant {
     public static final String JAVA_SUFFIX = ".java";
     public static final String XML_SUFFIX = ".xml";
 
-
+    //文件名
     public static final String CONTROLLER_FILENAME = "Controller";
     public static final String SERVICE_FILENAME = "Service";
     public static final String SERVICE_IMPL_FILENAME = "ServiceImpl";
@@ -48,14 +56,14 @@ public class Constant {
 
     public static final String CONTROLLER = "Controller";
     public static final String SERVICE = "Service";
-    public static final String SERVICE_IMPL_FILENAME = "ServiceImpl";
-    public static final String DAO_FILENAME = "Dao";
-    public static final String MAPPER_FILENAME = "Mapper";
-    public static final String ENHANCED_FILENAME = "Enhanced";
-    public static final String ENUM_FILENAME = "Enum";
-    public static final String XML_FILENAME = "xml";
-    public static final String REMOTE_API_FILENAME = "RemoteApi";
-    public static final String REMOTE_API_IMPL_FILENAME = "RemoteApiImpl";
+    public static final String SERVICE_IMPL = "ServiceImpl";
+    public static final String DAO = "Dao";
+    public static final String MAPPER = "Mapper";
+    public static final String ENHANCED = "Enhanced";
+    public static final String ENUM = "Enum";
+    public static final String XML = "xml";
+    public static final String REMOTE_API= "RemoteApi";
+    public static final String REMOTE_API_IMPL = "RemoteApiImpl";
 
 
 
@@ -63,5 +71,8 @@ public class Constant {
     public static final String SOLUTION = "solution";
     public static final String WY = "wy";
 
+
+    public static final String COLUMN = "column_";
+    public static final String FIELD = "field_";
 
 }

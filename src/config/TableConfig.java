@@ -2,19 +2,20 @@ package config;
 
 import bean.Table;
 import bean.TableField;
+import com.google.common.base.CaseFormat;
+import contants.Constant;
 import contants.DbColumnType;
 import convert.MySqlTypeConvert;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
-import utils.UI;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
+import utils.UI;
 
 /**
  * @author ：ZhangLei
@@ -33,7 +34,7 @@ public class TableConfig {
         this.dbConfig = dbConfig;
     }
 
-    public void initTable(){
+    public void initTable() {
         try {
             Connection connection = dbConfig.getConnection();
             if (connection == null) {
@@ -48,11 +49,12 @@ public class TableConfig {
                 Table table = new Table();
                 table.setName(tableName);
                 table.setComment(comment);
+                table.setFile(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableName));
                 tablefieldExcute(table);
                 tables.add(table);
             }
         } catch (SQLException e) {
-            UI.alertErrorMessage(String.format("获取数据库表信息失败：%s",e.getMessage()));
+            UI.alertErrorMessage(String.format("获取数据库表信息失败：%s", e.getMessage()));
         }
     }
 
@@ -60,7 +62,7 @@ public class TableConfig {
     /**
      * 填充 表字段信息
      */
-    public void tablefieldExcute(Table table){
+    public void tablefieldExcute(Table table) {
         StringBuilder builder = new StringBuilder();
         builder.append("show full fields from ").append(table.getName());
         try {
@@ -85,6 +87,9 @@ public class TableConfig {
                 field.setTableName(table.getName());
                 field.setType(type);
 
+                field.setColumnConstant(String.format("%s%s",Constant.COLUMN,field.getName()));
+                field.setFiledConstant(String.format("%s%s", Constant.FIELD,
+                        CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, field.getName())));
 
                 //数据库类型与Java转换
                 DbColumnType dbColumnType = mysqlTypeConvert.processTypeConvert(field.getType());
@@ -92,7 +97,7 @@ public class TableConfig {
                 table.getFieldInfoList().add(field);
             }
         } catch (SQLException e) {
-            UI.alertErrorMessage(String.format("获取数据库表信息失败：%s",e.getMessage()));
+            UI.alertErrorMessage(String.format("获取数据库表信息失败：%s", e.getMessage()));
         }
     }
 }
