@@ -40,7 +40,7 @@ public class FilePathConfig {
 
     private String requestBeanPackagePath;
 
-    public void initWyPath() {
+    public void initSolutionPath() {
         remoteApiPath = "/remote/api/";
         remoteApiImplPath = "/remote/api/impl/";
         controllerPath = "/controller/";
@@ -56,19 +56,19 @@ public class FilePathConfig {
         requestBeanPackagePath = "/model/request/";
     }
 
-    public void initSolutionPath() {
-        remoteApiPath = String.format("/remote/api/");
-        remoteApiImplPath = String.format("/remote/api/impl/");
-        controllerPath = String.format("/controller/");
-        servicePath = String.format("/interfaces/");
-        serviceImplPath = String.format("/service/");
-        daoPath = String.format("/persistence/dao/ ");
-        mapperPath = String.format("/persistence/mapper/");
-        xmlPath = String.format("/xml/");
-        entityPath = String.format("/bean/po/");
-        enhancedPath = String.format("/bean/enhanced/");
-        enumPackagePath = String.format("/bean/enums/");
-        responseBeanPackagePath = String.format("/bean/resp/");
-        requestBeanPackagePath = String.format("/bean/req/");
+    public void initWyPath() {
+        remoteApiPath = "/remote/api/";
+        remoteApiImplPath =  "/remote/api/impl/" ;
+        controllerPath =  "/controller/" ;
+        servicePath =  "/interfaces/" ;
+        serviceImplPath =  "/service/" ;
+        daoPath =  "/persistence/dao/ " ;
+        mapperPath =  "/persistence/mapper/" ;
+        xmlPath =  "/xml/" ;
+        entityPath =  "/bean/po/" ;
+        enhancedPath =  "/bean/enhanced/" ;
+        enumPackagePath =  "/bean/enums/" ;
+        responseBeanPackagePath =  "/bean/resp/" ;
+        requestBeanPackagePath =  "/bean/req/" ;
     }
 }

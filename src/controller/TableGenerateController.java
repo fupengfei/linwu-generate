@@ -331,6 +331,7 @@ public class TableGenerateController extends BaseController implements Initializ
     public void generate(ActionEvent event) throws Exception {
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
         if(selectedIndex<0){
+            UI.alertErrorMessage("请选择需要配置的表");
             return;
         }
         Table table = tableGenerate.get(selectedIndex);

@@ -66,7 +66,7 @@ public class FreemarkerTemplateEngine {
         if(fileChoose.isReq()){}
         if(fileChoose.isResp()){}
         if(fileChoose.isQuery()){}
-
+        open(outputDir);
     }
 
     public static void createFile(FileBuilder fileBuilder,String templatePath,String outputFile) throws IOException, TemplateException {
@@ -75,6 +75,8 @@ public class FreemarkerTemplateEngine {
         FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFile));
         template.process(fileBuilder, new OutputStreamWriter(fileOutputStream, Constant.UTF8));
         fileOutputStream.close();
+
+
     }
 
 
@@ -84,5 +86,20 @@ public class FreemarkerTemplateEngine {
         if(!exists){
             parentFile.mkdirs();
         }
+    }
+
+    public static void open(String outDir) {
+            try {
+                String osName = System.getProperty("os.name");
+                if (osName != null) {
+                    if (osName.contains("Mac")) {
+                        Runtime.getRuntime().exec("open " + outDir);
+                    } else if (osName.contains("Windows")) {
+                        Runtime.getRuntime().exec("cmd /c start " + outDir);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 }

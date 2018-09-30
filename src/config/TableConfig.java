@@ -77,7 +77,7 @@ public class TableConfig {
 
                 String key = results.getString("Key");
                 if (!StringUtils.isEmpty(key) && "PRI".equals(key.toUpperCase())) {
-                    field.setKey(true);
+                    field.setKeyFlag(true);
                 }
 
                 String comment = results.getString("Comment");
@@ -88,8 +88,10 @@ public class TableConfig {
                 field.setType(type);
 
                 field.setColumnConstant(String.format("%s%s",Constant.COLUMN,field.getName()));
-                field.setFiledConstant(String.format("%s%s", Constant.FIELD,
+
+                field.setFieldConstant(String.format("%s%s", Constant.FIELD,
                         CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, field.getName())));
+                field.setJavaField(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, field.getName()));
 
                 //数据库类型与Java转换
                 DbColumnType dbColumnType = mysqlTypeConvert.processTypeConvert(field.getType());
@@ -99,5 +101,10 @@ public class TableConfig {
         } catch (SQLException e) {
             UI.alertErrorMessage(String.format("获取数据库表信息失败：%s", e.getMessage()));
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "test_data"));
+        System.out.println(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "test_data"));
     }
 }

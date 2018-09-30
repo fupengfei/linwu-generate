@@ -29,7 +29,7 @@ import java.util.List;
 @Setter
 public class TableField {
     private String tableName;
-    private boolean isKey;
+    private boolean keyFlag;
     private String name;
     private String type;
     private DbColumnType columnType;
@@ -41,8 +41,9 @@ public class TableField {
     private EnumBean enumBean;
     private TableField objField;
     private bean.Table objTable;
-    private String filedConstant;
+    private String fieldConstant;
     private String columnConstant;
+    private String javaField;
 
     public TableField(){
         initChoiceBox();
@@ -155,5 +156,10 @@ public class TableField {
                 }
             }
         });
+    }
+
+    public static void main(String[] args) {
+        TableField field = new TableField();
+        field.isKeyFlag();
     }
 }
