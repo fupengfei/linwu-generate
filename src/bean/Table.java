@@ -25,6 +25,7 @@ public class Table {
     private Button selectTableOperate;
     private FileChoose fileChoose = new FileChoose();
     private String file;
+    private String fileField;
 
     public Table(){
         this.imageView = new ImageView(new Image(getClass().getResourceAsStream("/resource/table.png")));
@@ -68,4 +69,5 @@ public class Table {
             this.allTableOperate.setManaged(true);
         });
     }
+
 }

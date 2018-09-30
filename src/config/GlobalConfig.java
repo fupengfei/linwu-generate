@@ -29,4 +29,5 @@ public class GlobalConfig {
 
     private TemplateConfig templateConfig;
 
+    private String source;
 }

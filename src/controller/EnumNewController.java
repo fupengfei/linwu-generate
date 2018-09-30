@@ -148,6 +148,11 @@ public class EnumNewController extends BaseController implements Initializable {
         EnumBean bean = new EnumBean();
         bean.initTableView(enumTable);
         bean.setClassName(enumName);
+        String str = bean.getClassName().substring(0, 1).toLowerCase() + bean.getClassName()
+                .substring(1);
+        bean.setFieldName(str);
+
+
         List<EnumProperties> collect = properties.stream().map(pro -> {
             pro.setBean(bean);
             return pro;

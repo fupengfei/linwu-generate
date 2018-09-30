@@ -23,6 +23,8 @@ public class EnumBean {
     @Expose
     private String className;
     @Expose
+    private String fieldName;
+    @Expose
     private List<EnumProperties> properties ;
     @Expose(serialize = false)
     private TableView enumTable;

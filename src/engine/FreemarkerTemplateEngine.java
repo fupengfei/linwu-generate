@@ -54,13 +54,28 @@ public class FreemarkerTemplateEngine {
         if(fileChoose.isServiceImpl()){}
         if(fileChoose.isDao()){}
         if(fileChoose.isMapper()){}
-        if(fileChoose.isXml()){}
+        if(fileChoose.isXml()){
+            String format = null;
+            if(Constant.SOLUTION.equals(globalConfig.getSource())){
+                 format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getXmlPath(), table.getFile()+"Mapper",".xml");
+            }
+            if(Constant.WY.equals(globalConfig.getSource())){
+                 format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getXmlPath(), table.getName()+"_mapper",".xml");
+            }
+            //文件名
+            createFile(builder,templateConfig.getXml(),format);
+        }
+
         if(fileChoose.isEntity()){
             String format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getEntityPath(), table.getFile(),".java");
             //文件名
             createFile(builder,templateConfig.getEntity(),format);
         }
-        if(fileChoose.isEnhanced()){}
+        if(fileChoose.isEnhanced()){
+            String format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getEnhancedPath(), table.getFile()+"Enhanced",".java");
+            //文件名
+            createFile(builder,templateConfig.getEnhanced(),format);
+        }
 
 
         if(fileChoose.isReq()){}

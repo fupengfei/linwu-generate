@@ -24,7 +24,11 @@ public class Hook {
                 Map<Object, Object> row = Cache.getGuavaTable().row(Constant.ENUM_JSON);
                 List<EnumBean> list = new ArrayList<>();
                 row.forEach((k,v)->{
-                    list.add((EnumBean) v);
+                    EnumBean enumBean = (EnumBean) v;
+                    String str = enumBean.getClassName().substring(0, 1).toLowerCase() + enumBean.getClassName()
+                            .substring(1);
+                    enumBean.setFieldName(str);
+                    list.add(enumBean);
                 });
 
                 GsonBuilder builder = new GsonBuilder();

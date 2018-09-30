@@ -158,6 +158,10 @@ public class TableField {
         });
     }
 
+    public String javaFieldFirstUppercase(){
+        return this.getJavaField().substring(0,1).toUpperCase()+this.getJavaField().substring(1);
+    }
+
     public static void main(String[] args) {
         TableField field = new TableField();
         field.isKeyFlag();

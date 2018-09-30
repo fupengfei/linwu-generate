@@ -50,6 +50,7 @@ public class TableConfig {
                 table.setName(tableName);
                 table.setComment(comment);
                 table.setFile(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableName));
+                table.setFileField(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, table.getName()));
                 tablefieldExcute(table);
                 tables.add(table);
             }
@@ -104,7 +105,7 @@ public class TableConfig {
     }
 
     public static void main(String[] args) {
-        System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "test_data"));
-        System.out.println(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "test_data"));
+
+
     }
 }

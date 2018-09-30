@@ -1,49 +1,43 @@
-package ${package.Enhanced};
+package ${globalConfig.packageConfig.enhanced};
 
-import com.homedo.microservice.odin.wy.bean.po.${entity};
-import com.homedo.common.service.BaseService;
-import com.homedo.common.dao.bean.po.enhanced.base.BaseEnhanced;
-import lombok.NoArgsConstructor;
-import java.util.Date;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import lombok.experimental.Accessors;
 import lombok.Data;
+import lombok.experimental.Accessors;
+import com.homedo.common.dao.bean.po.base.BasePo;
+import java.time.LocalDateTime;
 import org.springframework.beans.BeanUtils;
-<#list enumPack as epack>
-import ${epack.name};
-</#list>
-<#list joinObjPack as obj>
-import ${obj.name};
-</#list>
+
 /**
- * @author ${author}
- * @date ${date}
+ * @author ${globalConfig.author};
+ * ${table.comment}
+ * 数据增强类
  */
 @Data
 @Accessors(chain = true)
-@NoArgsConstructor
-public class ${entity}Enhanced extends BaseEnhanced{
-<#list enhancedFds as field>
-    private ${field.eunmsClass} ${field.propertyName};
+public class ${table.file}Enhanced extends BaseEnhanced{
+
+<#list table.fieldInfoList as field>
+  <#if field.enumBean??>
+    private ${field.enumBean.className}  ${field.enumBean.fieldName};
+  <#elseIf field.objTable??>
+    private ${field.objTable.file}Enhanced ${field.objTable.fileField}Enhanced
+  <#else>
+    private ${field.columnType.type} ${field.javaField};
+  </#if>
 </#list>
 
-    public ${entity}Enhanced(${entity} bean) {
+    public ${table.file}Enhanced(${table.file} bean) {
         BeanUtils.copyProperties(bean, this);
-        <#list enhancedEnumMethod as me>
-        if (bean.get${me.getMethodUp}() != null) {
-        this.${me.propertyName} = ${me.eunmsClass}
-            .get${me.eunmsClass}ByCode(bean.get${me.getMethodUp}());
+    <#list table.fieldInfoList as field>
+      <#if field.enumBean??>
+        if(bean.get${field.javaFieldFirstUppercase()}()!=null){
+          this.${field.enumBean.fieldName} = ${field.enumBean.className}.getByCode(bean.get${field.javaFieldFirstUppercase()}());
         }
-        </#list>
-
-        <#list enhancedObjMethod as obj>
-        if (bean.get${obj.joinId}() != null) {
-            ${obj.eunmsClass} ${obj.propertyName} = new ${obj.eunmsClass}();
-            ${obj.propertyName}.setId(bean.get${obj.joinId}());
-            this.${obj.propertyName} = ${obj.propertyName};
+      <#elseIf field.objTable??>
+        if(bean.get${field.javaFieldFirstUppercase()}()!=null){
+          this.${field.objTable.fileField}Enhanced = new ${field.objTable.file}Enhanced();
+          this.${field.objTable.fileField}Enhanced.set${field.objField.javaFieldFirstUppercase()}(bean.get${field.javaFieldFirstUppercase()}())
         }
-        </#list>
+      </#if>
+    </#list>
     }
-
 }

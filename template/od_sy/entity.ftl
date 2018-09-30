@@ -22,13 +22,11 @@ public class ${table.file} extends BasePo{
   <#if field.keyFlag>
     @Id
     @GeneratedValue(generator = "JDBC")
-    @Column(name = "${field.name}")
-  <#else>
-    @Column(name = "${field.name}")
   </#if>
     /**
     *${field.comment}
     */
+    @Column(name = "${field.name}")
     private ${field.columnType.type} ${field.javaField};
 </#list>
 
