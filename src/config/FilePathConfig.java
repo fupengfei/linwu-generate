@@ -34,7 +34,7 @@ public class FilePathConfig {
 
     private String enhancedPath;
 
-    private String enumPackagePath;
+    private String enumPath;
 
     private String responseBeanPackagePath;
 
@@ -51,7 +51,7 @@ public class FilePathConfig {
         xmlPath = "/xml/";
         entityPath = "/model/entity/";
         enhancedPath = "/model/entity/enhanced/";
-        enumPackagePath = "/enumcode/";
+        enumPath = "/enumcode/";
         responseBeanPackagePath = "/model/response/";
         requestBeanPackagePath = "/model/request/";
     }
@@ -67,7 +67,7 @@ public class FilePathConfig {
         xmlPath =  "/xml/" ;
         entityPath =  "/bean/po/" ;
         enhancedPath =  "/bean/enhanced/" ;
-        enumPackagePath =  "/bean/enums/" ;
+        enumPath =  "/bean/enums/" ;
         responseBeanPackagePath =  "/bean/resp/" ;
         requestBeanPackagePath =  "/bean/req/" ;
     }

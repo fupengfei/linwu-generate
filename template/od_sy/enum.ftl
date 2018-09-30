@@ -1,33 +1,29 @@
-package ${package.Enums}.${enumPack};
+package ${globalConfig.packageConfig.enumPackage}.${bizEnum};
 
 import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author ${author}
- * @date ${date}
+ * @author ${globalConfig.author};
  */
 @Getter
 @AllArgsConstructor
-public enum ${enumsClass}{
-<#list databean as bean>
-<#if (bean_has_next)>
-    ${bean.name}(${bean.code},"${bean.msg}"),
-<#else>
-    ${bean.name}(${bean.code},"${bean.msg}");
-</#if>
+public enum ${enumBean.className}{
+<#list enumBean.properties as codeMsg>
+    ${codeMsg.code}:${codeMsg.msg}
 </#list>
-
     private Integer code;
     private String  msg;
 
-    public static ${enumsClass} get${enumsClass}ByCode(Integer code) {
-        return Arrays.stream(${enumsClass}.values()).filter(obj -> obj.getCode().equals(code))
+    public static ${enumBean.className} get${enumBean.className}ByCode(Integer code) {
+        return Arrays.stream(${enumBean.className}.values()).filter(obj -> obj.getCode().equals(code))
                 .findFirst().orElse(null);
     }
 
     public static boolean codeExist(Integer code) {
-        return Arrays.stream(${enumsClass}.values()).anyMatch(obj -> obj.getCode().equals(code));
+        return Arrays.stream(${enumBean.className}.values()).anyMatch(obj -> obj.getCode().equals(code));
     }
+
+
 }

@@ -35,7 +35,7 @@ public class TemplateConfig {
 
     private String enhanced;
 
-    private String enumPackage;
+    private String enumTemplate;
 
     private String response;
 
@@ -64,7 +64,7 @@ public class TemplateConfig {
         xml = path + "xml.ftl";
         entity = path + "entity.ftl";
         enhanced = path + "enhanced.ftl";
-        enumPackage = path + "enumPackage.ftl";
+        enumTemplate = path + "enum.ftl";
         response = path + "response.ftl";
         request = path + "request.ftl";
     }

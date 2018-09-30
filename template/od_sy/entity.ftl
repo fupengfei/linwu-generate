@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author ${globalConfig.author};
- * ${table.comment}
+ * ${table.comment!}
  */
 @Data
 @Accessors(chain = true)
@@ -24,7 +24,7 @@ public class ${table.file} extends BasePo{
     @GeneratedValue(generator = "JDBC")
   </#if>
     /**
-    *${field.comment}
+    *${field.comment!}
     */
     @Column(name = "${field.name}")
     private ${field.columnType.type} ${field.javaField};

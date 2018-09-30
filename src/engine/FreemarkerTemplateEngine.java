@@ -3,7 +3,7 @@ package engine;
 import bean.FileBuilder;
 import bean.FileChoose;
 import bean.Table;
-import cache.Cache;
+import bean.TableField;
 import com.google.common.base.CaseFormat;
 import config.FilePathConfig;
 import config.GlobalConfig;
@@ -12,15 +12,13 @@ import contants.Constant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
-import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.StringUtils;
-import utils.IOUtils;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FreemarkerTemplateEngine {
     private static Configuration configuration;
@@ -62,36 +60,43 @@ public class FreemarkerTemplateEngine {
             if(Constant.WY.equals(globalConfig.getSource())){
                  format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getXmlPath(), table.getName()+"_mapper",".xml");
             }
-            //文件名
             createFile(builder,templateConfig.getXml(),format);
         }
 
         if(fileChoose.isEntity()){
             String format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getEntityPath(), table.getFile(),".java");
-            //文件名
             createFile(builder,templateConfig.getEntity(),format);
         }
         if(fileChoose.isEnhanced()){
             String format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getEnhancedPath(), table.getFile()+"Enhanced",".java");
-            //文件名
             createFile(builder,templateConfig.getEnhanced(),format);
         }
-
 
         if(fileChoose.isReq()){}
         if(fileChoose.isResp()){}
         if(fileChoose.isQuery()){}
+
+        //生成字段关联对象枚举
+        List<TableField> fieldInfoList = table.getFieldInfoList();
+        fieldInfoList.removeIf(field->field.getEnumBean()==null);
+        for (TableField field : fieldInfoList) {
+            String bizEnum = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, field.getTableName()).toLowerCase();
+            String format = String.format("%s%s%s%s%s", outputDir, "/",filePathConfig.getEnumPath()+bizEnum+"/", field.getEnumBean().getClassName(),".java");
+            Map<String, Object> map = new HashMap<>();
+            map.put("globalConfig",globalConfig);
+            map.put("enumBean",field.getEnumBean());
+            map.put("bizEnum",bizEnum);
+            createFile(map,templateConfig.getEnumTemplate(),format);
+        }
         open(outputDir);
     }
 
-    public static void createFile(FileBuilder fileBuilder,String templatePath,String outputFile) throws IOException, TemplateException {
+    public static void createFile(Object obj,String templatePath,String outputFile) throws IOException, TemplateException {
         makeDir(new File(outputFile));
         Template template = configuration.getTemplate(templatePath);
         FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFile));
-        template.process(fileBuilder, new OutputStreamWriter(fileOutputStream, Constant.UTF8));
+        template.process(obj, new OutputStreamWriter(fileOutputStream, Constant.UTF8));
         fileOutputStream.close();
-
-
     }
 
 

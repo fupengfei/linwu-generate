@@ -106,6 +106,6 @@ public class TableConfig {
 
     public static void main(String[] args) {
 
-
+        System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "test_data").toLowerCase());
     }
 }
