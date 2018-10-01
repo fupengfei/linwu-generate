@@ -9,18 +9,19 @@
 
 <Pane fx:id="fieldRightPane" layoutX="-1.0" prefHeight="486.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FieldEnumController">
     <children>
-        <TableView fx:id="enumTable" layoutX="6.0" layoutY="63.0" prefHeight="327.0" prefWidth="320.0">
+        <TableView fx:id="enumTable" layoutX="6.0" layoutY="63.0" prefHeight="327.0" prefWidth="228.0">
             <columns>
-                <TableColumn fx:id="fieldEnumColumn" prefWidth="215.0" text="枚举" />
-                <TableColumn fx:id="fieldOperateColumn" prefWidth="104.0" text="操作" />
+                <TableColumn fx:id="fieldEnumColumn" prefWidth="106.0" text="枚举" />
+                <TableColumn fx:id="fieldOperateColumn" prefWidth="121.0" text="操作" />
             </columns>
         </TableView>
       <TextField fx:id="search" layoutX="51.0" layoutY="14.0" />
       <Label layoutX="6.0" layoutY="14.0" prefHeight="23.0" prefWidth="32.0" text="搜索" />
-      <TableView fx:id="enumDetailTable" layoutX="339.0" layoutY="63.0" prefHeight="327.0" prefWidth="218.0">
+      <TableView fx:id="enumDetailTable" layoutX="270.0" layoutY="63.0" prefHeight="327.0" prefWidth="295.0">
         <columns>
-          <TableColumn fx:id="enumName" prefWidth="116.0" text="name" />
-          <TableColumn fx:id="enumValue" prefWidth="101.0" text="value" />
+          <TableColumn fx:id="name" prefWidth="100.0" text="name" />
+          <TableColumn fx:id="code" prefWidth="100.0" text="code" />
+            <TableColumn fx:id="msg" prefWidth="92.0" text="msg" />
         </columns>
       </TableView>
     </children>

@@ -46,15 +46,19 @@ public class EnumNewController extends BaseController implements Initializable {
     @FXML
     private TableView enumProperties;
     @FXML
-    private TableColumn enumName;
+    private TableColumn name;
     @FXML
-    private TableColumn enumValue;
+    private TableColumn code;
+    @FXML
+    private TableColumn msg;
     @FXML
     private TableColumn propertiesDeleteButton;
     @FXML
-    private TextField newName;
+    private TextField addCode;
     @FXML
-    private TextField newValue;
+    private TextField addMsg;
+    @FXML
+    private TextField addName;
     @FXML
     private TextField enumClassName;
     private ObservableList<EnumBean> enumBeans = FXCollections.observableArrayList();
@@ -67,8 +71,9 @@ public class EnumNewController extends BaseController implements Initializable {
         className.setCellValueFactory(new PropertyValueFactory("className"));
         enumDeleteButton.setCellValueFactory(new PropertyValueFactory("deleteButton"));
 
-        enumName.setCellValueFactory(new PropertyValueFactory("code"));
-        enumValue.setCellValueFactory(new PropertyValueFactory("msg"));
+        code.setCellValueFactory(new PropertyValueFactory("code"));
+        msg.setCellValueFactory(new PropertyValueFactory("msg"));
+        name.setCellValueFactory(new PropertyValueFactory("name"));
         propertiesDeleteButton.setCellValueFactory(new PropertyValueFactory("propertiesDeleteButton"));
         //初始化枚举详情列表清空
         showEnumDetailTable(null);
@@ -97,29 +102,37 @@ public class EnumNewController extends BaseController implements Initializable {
      * @param mouseEvent
      */
     public void addProperties(MouseEvent mouseEvent) {
-        String name = newName.getText();
+        String code = addCode.getText();
         try {
-            Integer.parseInt(name);
+            Integer.parseInt(code);
         } catch (NumberFormatException e) {
-            UI.alertErrorMessage("枚举Name必须为数字类型");
+            UI.alertErrorMessage("枚举Code必须为数字类型");
             return;
         }
 
-        String value = newValue.getText();
-        if(StringUtils.isBlank(value)){
-            UI.alertErrorMessage("枚举Value必须为字符类型");
+        String msg = addMsg.getText();
+        if(StringUtils.isBlank(msg)){
+            UI.alertErrorMessage("枚举Msg必须为字符类型");
+            return;
+        }
+
+        String name = addName.getText();
+        if(StringUtils.isBlank(name)){
+            UI.alertErrorMessage("枚举Name必须为字符类型");
             return;
         }
 
         EnumProperties newProperties = new EnumProperties(null);
         newProperties.initTableView(enumProperties);
-        newProperties.setCode(name);
-        newProperties.setMsg(value);
+        newProperties.setCode(code);
+        newProperties.setMsg(msg);
+        newProperties.setName(name.toUpperCase());
         properties.add(newProperties);
         enumProperties.setItems(properties);
 
-        newName.setText(null);
-        newValue.setText(null);
+        addCode.setText(null);
+        addMsg.setText(null);
+        addName.setText(null);
     }
 
 

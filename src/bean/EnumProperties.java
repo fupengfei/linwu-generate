@@ -15,6 +15,8 @@ import lombok.Setter;
 @Setter
 public class EnumProperties {
     @Expose
+    private String name;
+    @Expose
     private String code;
     @Expose
     private String msg;

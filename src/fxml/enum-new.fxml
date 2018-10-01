@@ -17,18 +17,20 @@
                                 <TableColumn fx:id="enumDeleteButton" prefWidth="75.0" text="操作" />
                             </columns>
                         </TableView>
-                        <TableView fx:id="enumProperties" layoutX="206.0" layoutY="72.0" prefHeight="293.0" prefWidth="323.0">
+                        <TableView fx:id="enumProperties" layoutX="206.0" layoutY="72.0" prefHeight="293.0" prefWidth="399.0">
                             <columns>
-                                <TableColumn fx:id="enumName" prefWidth="102.0" text="name" />
-                                <TableColumn fx:id="enumValue" prefWidth="110.0" text="value" />
+                        <TableColumn fx:id="name" prefWidth="84.0" text="name" />
+                                <TableColumn fx:id="code" prefWidth="99.0" text="code" />
+                                <TableColumn fx:id="msg" prefWidth="104.0" text="msg" />
                                 <TableColumn fx:id="propertiesDeleteButton" prefWidth="110.0" text="操作" />
                             </columns>
                         </TableView>
-                        <Button fx:id="addProperties" layoutX="328.0" layoutY="476.0" mnemonicParsing="false" onMouseClicked="#addProperties" text="新增属性" />
-                        <TextField fx:id="newName" layoutX="206.0" layoutY="399.0" prefHeight="23.0" prefWidth="141.0" promptText="name新增" />
-                        <TextField fx:id="newValue" layoutX="376.0" layoutY="399.0" prefHeight="23.0" prefWidth="141.0" promptText="value新增" />
-                  <TextField layoutX="206.0" layoutY="26.0" promptText="输入枚举类名" fx:id="enumClassName"/>
-                  <Button layoutX="401.0" layoutY="26.0" mnemonicParsing="false" text="新增枚举" onMouseClicked="#addEnum"/>
+                        <Button fx:id="addProperties" layoutX="374.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#addProperties" text="新增属性" />
+                        <TextField fx:id="addCode" layoutX="348.0" layoutY="399.0" prefHeight="23.0" prefWidth="126.0" promptText="code" />
+                        <TextField fx:id="addMsg" layoutX="491.0" layoutY="399.0" prefHeight="23.0" prefWidth="114.0" promptText="msg" />
+                  <TextField fx:id="enumClassName" layoutX="206.0" layoutY="26.0" promptText="输入枚举类名" />
+                  <Button layoutX="401.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#addEnum" text="新增枚举" />
+                  <TextField fx:id="addName" layoutX="206.0" layoutY="399.0" prefHeight="23.0" prefWidth="114.0" promptText="name" />
                     </children>
                 </AnchorPane>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="761.0" prefWidth="0.0" />

@@ -17,16 +17,18 @@
                       <TableColumn fx:id="enumDeleteButton" prefWidth="75.0" text="操作" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="enumProperties" layoutX="206.0" prefHeight="293.0" prefWidth="323.0">
+                  <TableView fx:id="enumProperties" layoutX="206.0" prefHeight="293.0" prefWidth="398.0">
                     <columns>
-                      <TableColumn fx:id="enumName" prefWidth="102.0" text="name" />
-                      <TableColumn fx:id="enumValue" prefWidth="110.0" text="value" />
+                      <TableColumn fx:id="name" prefWidth="102.0" text="name" />
+                      <TableColumn fx:id="code" prefWidth="110.0" text="code" />
+                        <TableColumn fx:id="msg" prefWidth="75.0" text="msg" />
                       <TableColumn fx:id="propertiesDeleteButton" prefWidth="110.0" text="操作" />
                     </columns>
                   </TableView>
-                  <Button  fx:id="addProperties"  layoutX="336.0" layoutY="411.0" mnemonicParsing="false" text="新增属性" onMouseClicked="#addProperties"/>
-                  <TextField fx:id="newName" layoutX="206.0" layoutY="322.0" prefHeight="23.0" prefWidth="141.0" promptText="name新增" />
-                  <TextField fx:id="newValue" layoutX="387.0" layoutY="322.0" prefHeight="23.0" prefWidth="141.0" promptText="value新增" />
+                  <Button fx:id="addProperties" layoutX="336.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#addProperties" text="新增属性" />
+                  <TextField fx:id="addCode" layoutX="353.0" layoutY="322.0" prefHeight="23.0" prefWidth="105.0" promptText="code新增" />
+                  <TextField fx:id="addMsg" layoutX="493.0" layoutY="322.0" prefHeight="23.0" prefWidth="105.0" promptText="msg新增" />
+                  <TextField fx:id="addName" layoutX="206.0" layoutY="322.0" prefHeight="23.0" prefWidth="105.0" promptText="name新增" />
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="761.0" prefWidth="0.0" />
