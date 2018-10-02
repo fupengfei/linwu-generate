@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @Table(name = "${table.name}")
-public class ${table.file} extends BasePo{
+public class ${table.getClassName()} extends BasePo{
 
 <#list table.fieldInfoList as field>
   <#if field.keyFlag>
@@ -27,20 +27,20 @@ public class ${table.file} extends BasePo{
     *${field.comment!}
     */
     @Column(name = "${field.name}")
-    private ${field.columnType.type} ${field.javaField};
+    private ${field.columnType.type} ${field.getJavaField()};
 </#list>
 
     /**
     *Java字段映射
     */
 <#list table.fieldInfoList as field>
-    public static final String ${field.fieldConstant} = "${field.name}";
+    public static final String ${field.getFieldConstant()} = "${field.name}";
 </#list>
 
     /**
     *表字段映射
     */
 <#list table.fieldInfoList as field>
-    public static final String ${field.columnConstant} = "${field.name}";
+    public static final String ${field.getColumnConstant()} = "${field.name}";
 </#list>
 }

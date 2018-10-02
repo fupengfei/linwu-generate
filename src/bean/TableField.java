@@ -1,6 +1,7 @@
 package bean;
 
 import cache.Cache;
+import com.google.common.base.CaseFormat;
 import com.google.common.collect.Table;
 import contants.Constant;
 import contants.DbColumnType;
@@ -28,6 +29,10 @@ import java.util.List;
 @Getter
 @Setter
 public class TableField {
+    public static String CONSTANT_NAME = "name";
+    public static String CONSTANT_TYPE = "type";
+    public static String CONSTANT_FIELD_BUTTON = "fieldButton";
+
     private String tableName;
     private boolean keyFlag;
     private String name;
@@ -41,9 +46,6 @@ public class TableField {
     private EnumBean enumBean;
     private TableField objField;
     private bean.Table objTable;
-    private String fieldConstant;
-    private String columnConstant;
-    private String javaField;
 
     public TableField(){
         initChoiceBox();
@@ -162,8 +164,17 @@ public class TableField {
         return this.getJavaField().substring(0,1).toUpperCase()+this.getJavaField().substring(1);
     }
 
-    public static void main(String[] args) {
-        TableField field = new TableField();
-        field.isKeyFlag();
+    public String getColumnConstant(){
+        return String.format("%s%s",Constant.COLUMN,this.name);
     }
+
+    public String getFieldConstant(){
+        return String.format("%s%s", Constant.FIELD,
+                CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, this.name));
+    }
+
+    public String getJavaField(){
+        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, this.name);
+    }
+
 }

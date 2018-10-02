@@ -14,6 +14,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EnumProperties {
+    public static String CONSTANT_NAME = "name";
+    public static String CONSTANT_CODE = "code";
+    public static String CONSTANT_MSG = "msg";
+    public static String CONSTANT_PROPERTIES_DELETE_BUTTON = "propertiesDeleteButton";
+
     @Expose
     private String name;
     @Expose

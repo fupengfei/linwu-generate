@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +44,8 @@ public class ObjectTableFieldController extends BaseController implements Initia
     private TableColumn fieldType;
     @FXML
     private TableColumn fieldOperate;
+    @FXML
+    private TextField search;
 
     public final ObservableList<Table> tableList = FXCollections.observableArrayList();
     public final ObservableList<TableField> tableFieldList = FXCollections.observableArrayList();
@@ -50,8 +55,8 @@ public class ObjectTableFieldController extends BaseController implements Initia
         Cache.getGuavaTable().put(Constant.Controller, Constant.ObjectTableFieldController, this);
 
         //对应与表格列绑定
-        tablePic.setCellValueFactory(new PropertyValueFactory("filedTableView"));
-        tableName.setCellValueFactory(new PropertyValueFactory("name"));
+        tablePic.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_FILED_TABLE_VIEW));
+        tableName.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_NAME));
 
         refershTables();
         objTable.getSelectionModel().selectedItemProperty().addListener(
@@ -59,12 +64,31 @@ public class ObjectTableFieldController extends BaseController implements Initia
 
         objTable.setItems(tableList);
         fieldTable.setItems(tableFieldList);
+
+        FilteredList<Table> filter = new FilteredList<>(tableList, p -> true);
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filter.setPredicate(table -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String filterName = newValue.toLowerCase();
+
+                if (table.getName().contains(filterName)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Table> sortedData = new SortedList<>(filter);
+        sortedData.comparatorProperty().bind(objTable.comparatorProperty());
+
+        objTable.setItems(sortedData);
     }
 
     private void showTableDetail(Table table) {
-        fieldName.setCellValueFactory(new PropertyValueFactory("name"));
-        fieldType.setCellValueFactory(new PropertyValueFactory("type"));
-        fieldOperate.setCellValueFactory(new PropertyValueFactory("fieldButton"));
+        fieldName.setCellValueFactory(new PropertyValueFactory(TableField.CONSTANT_NAME));
+        fieldType.setCellValueFactory(new PropertyValueFactory(TableField.CONSTANT_TYPE));
+        fieldOperate.setCellValueFactory(new PropertyValueFactory(TableField.CONSTANT_FIELD_BUTTON));
         refershFieldTables(table);
     }
 

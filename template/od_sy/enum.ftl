@@ -10,8 +10,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ${enumBean.className}{
-<#list enumBean.properties as codeMsg>
-    ${codeMsg.code}:${codeMsg.msg}
+<#list enumBean.properties as pro>
+    <#if (pro_has_next)>
+    ${pro.name}(${pro.code},"${pro.msg}"),
+    <#else>
+    ${pro.name}(${pro.code},"${pro.msg}");
+    </#if>
+
+
 </#list>
     private Integer code;
     private String  msg;
@@ -24,6 +30,4 @@ public enum ${enumBean.className}{
     public static boolean codeExist(Integer code) {
         return Arrays.stream(${enumBean.className}.values()).anyMatch(obj -> obj.getCode().equals(code));
     }
-
-
 }

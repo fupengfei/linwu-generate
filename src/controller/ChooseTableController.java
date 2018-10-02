@@ -16,7 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
-import utils.UI;
+import utils.UiUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,13 +73,13 @@ public class ChooseTableController extends BaseController implements Initializab
      * 映射表格列与对象
      */
     public void initTableView() {
-        allTablePic.setCellValueFactory(new PropertyValueFactory("imageView"));
-        allTableName.setCellValueFactory(new PropertyValueFactory("name"));
-        allTableOperate.setCellValueFactory(new PropertyValueFactory("allTableOperate"));
+        allTablePic.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_IMAGE_VIEW));
+        allTableName.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_NAME));
+        allTableOperate.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_ALL_BUTTON));
 
-        selectTablePic.setCellValueFactory(new PropertyValueFactory("imageView"));
-        selectTableName.setCellValueFactory(new PropertyValueFactory("name"));
-        selectTableOperate.setCellValueFactory(new PropertyValueFactory("selectTableOperate"));
+        selectTablePic.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_IMAGE_VIEW));
+        selectTableName.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_NAME));
+        selectTableOperate.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_SELECT_BUTTON));
     }
 
     /**选择完毕 下一部加载新页面，配置表生成规则
@@ -87,7 +87,7 @@ public class ChooseTableController extends BaseController implements Initializab
      */
     public void next(ActionEvent actionEvent) {
         if(select.isEmpty()){
-            UI.alertErrorMessage("选择需要生成的表");
+            UiUtils.alertErrorMessage("选择需要生成的表");
             return;
         }
 
@@ -105,7 +105,7 @@ public class ChooseTableController extends BaseController implements Initializab
             controller.setRootStage(rootStage);
             controller.setRootBorderPane(rootBorderPane);
         } catch (IOException e) {
-            UI.alertErrorMessage(String.format("加载table-generate失败：%s",e.getMessage()));
+            UiUtils.alertErrorMessage(String.format("加载table-generate失败：%s",e.getMessage()));
         }
     }
 }

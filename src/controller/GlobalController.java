@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import utils.UI;
+import utils.UiUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,21 +62,21 @@ public class GlobalController extends BaseController implements Initializable {
 
     private boolean check() {
         if(StringUtils.isBlank(filePath.getText())){
-            UI.alertErrorMessage("输入文件路径");
+            UiUtils.alertErrorMessage("输入文件路径");
             return false;
         }
         if(StringUtils.isBlank(parentPackage.getText())){
-            UI.alertErrorMessage("输入父模块包名");
+            UiUtils.alertErrorMessage("输入父模块包名");
             return false;
         }
         if(StringUtils.isBlank(author.getText())){
-            UI.alertErrorMessage("输入作者信息");
+            UiUtils.alertErrorMessage("输入作者信息");
             return false;
         }
 
         RadioButton selecte = (RadioButton) group.getSelectedToggle();
         if (selecte == null) {
-            UI.alertErrorMessage("选择生成的项目");
+            UiUtils.alertErrorMessage("选择生成的项目");
             return false;
         }
 
@@ -94,6 +94,7 @@ public class GlobalController extends BaseController implements Initializable {
         globalConfig.setFilePathConfig(filePathConfig);
         globalConfig.setPackageConfig(packageConfig);
         globalConfig.setTemplateConfig(templateConfig);
+
 
         if(Constant.SOLUTION.equals(selecte.getId())){
             filePathConfig.initSolutionPath();
@@ -121,7 +122,7 @@ public class GlobalController extends BaseController implements Initializable {
             controller.setRootStage(rootStage);
             controller.setRootBorderPane(rootBorderPane);
         } catch (IOException e) {
-            UI.alertErrorMessage(String.format("加载table-generate失败：%s",e.getMessage()));
+            UiUtils.alertErrorMessage(String.format("加载table-generate失败：%s",e.getMessage()));
         }
     }
 }

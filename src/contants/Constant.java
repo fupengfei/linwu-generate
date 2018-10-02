@@ -75,4 +75,13 @@ public class Constant {
     public static final String COLUMN = "column_";
     public static final String FIELD = "field_";
 
+
+    //操作系统
+    public static final String Mac = "Mac";
+    public static final String Windows = "Windows";
+    public static final String OS_NAME = "os.name";
+    public static final String MAC_OPEN = "open ";
+    public static final String Mac_OPEN = "open ";
+    public static final String Windows_OPEN = "cmd /c start ";
+
 }

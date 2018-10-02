@@ -4,8 +4,6 @@ import bean.EnumBean;
 import bean.EnumProperties;
 import cache.Cache;
 import com.google.common.collect.Table;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import contants.Constant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,13 +17,10 @@ import javafx.scene.input.MouseEvent;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import utils.IOUtils;
-import utils.UI;
+import utils.UiUtils;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -68,13 +63,13 @@ public class EnumNewController extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Cache.getGuavaTable().put(Constant.Controller,Constant.EnumNewController,this);
 
-        className.setCellValueFactory(new PropertyValueFactory("className"));
-        enumDeleteButton.setCellValueFactory(new PropertyValueFactory("deleteButton"));
+        className.setCellValueFactory(new PropertyValueFactory(EnumBean.CONSTANT_CLASS_NAME));
+        enumDeleteButton.setCellValueFactory(new PropertyValueFactory(EnumBean.CONSTANT_DELETE_BUTTON));
 
-        code.setCellValueFactory(new PropertyValueFactory("code"));
-        msg.setCellValueFactory(new PropertyValueFactory("msg"));
-        name.setCellValueFactory(new PropertyValueFactory("name"));
-        propertiesDeleteButton.setCellValueFactory(new PropertyValueFactory("propertiesDeleteButton"));
+        code.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_CODE));
+        msg.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_MSG));
+        name.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_NAME));
+        propertiesDeleteButton.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_PROPERTIES_DELETE_BUTTON));
         //初始化枚举详情列表清空
         showEnumDetailTable(null);
 
@@ -106,19 +101,19 @@ public class EnumNewController extends BaseController implements Initializable {
         try {
             Integer.parseInt(code);
         } catch (NumberFormatException e) {
-            UI.alertErrorMessage("枚举Code必须为数字类型");
+            UiUtils.alertErrorMessage("枚举Code必须为数字类型");
             return;
         }
 
         String msg = addMsg.getText();
         if(StringUtils.isBlank(msg)){
-            UI.alertErrorMessage("枚举Msg必须为字符类型");
+            UiUtils.alertErrorMessage("枚举Msg必须为字符类型");
             return;
         }
 
         String name = addName.getText();
         if(StringUtils.isBlank(name)){
-            UI.alertErrorMessage("枚举Name必须为字符类型");
+            UiUtils.alertErrorMessage("枚举Name必须为字符类型");
             return;
         }
 
@@ -142,28 +137,25 @@ public class EnumNewController extends BaseController implements Initializable {
     public void addEnum(MouseEvent mouseEvent) {
         String enumName = enumClassName.getText();
         if(StringUtils.isBlank(enumName)){
-            UI.alertErrorMessage("请输入枚举名");
+            UiUtils.alertErrorMessage("请输入枚举名");
             return;
         }
 
         Table<String, Object, Object> guavaTable = Cache.getGuavaTable();
         boolean contains = guavaTable.contains(Constant.ENUM_JSON, enumName);
         if(contains){
-            UI.alertErrorMessage(String.format("枚举已存在：%s",enumName));
+            UiUtils.alertErrorMessage(String.format("枚举已存在：%s",enumName));
             return;
         }
 
         if(properties.isEmpty()){
-            UI.alertErrorMessage("未配置枚举 name value");
+            UiUtils.alertErrorMessage("未配置枚举 name value");
             return;
         }
 
         EnumBean bean = new EnumBean();
         bean.initTableView(enumTable);
         bean.setClassName(enumName);
-        String str = bean.getClassName().substring(0, 1).toLowerCase() + bean.getClassName()
-                .substring(1);
-        bean.setFieldName(str);
 
 
         List<EnumProperties> collect = properties.stream().map(pro -> {

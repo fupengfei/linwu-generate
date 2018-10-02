@@ -2,14 +2,18 @@ package controller;
 
 import bean.EnumBean;
 import bean.EnumProperties;
+import bean.Table;
 import cache.Cache;
 import contants.Constant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,6 +47,8 @@ public class FieldEnumController  extends BaseController implements Initializabl
     private TableColumn msg;
     @FXML
     private TableColumn name;
+    @FXML
+    private TextField search;
 
 
     private ObservableList<EnumBean> enumBeans = FXCollections.observableArrayList();
@@ -52,17 +58,36 @@ public class FieldEnumController  extends BaseController implements Initializabl
         Cache.getGuavaTable().put(Constant.Controller,Constant.FieldEnumController,this);
         refreshEnums();
 
-        fieldEnumColumn.setCellValueFactory(new PropertyValueFactory("className"));
-        fieldOperateColumn.setCellValueFactory(new PropertyValueFactory("selectButton"));
+        fieldEnumColumn.setCellValueFactory(new PropertyValueFactory(EnumBean.CONSTANT_CLASS_NAME));
+        fieldOperateColumn.setCellValueFactory(new PropertyValueFactory(EnumBean.CONSTANT_SELECT_BUTTON));
         enumTable.setItems(enumBeans);
 
         //监听行选取变化，右边Enum展示对应的枚举属性列表
         enumTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showEnumDetailTable((EnumBean) newValue));
 
-        code.setCellValueFactory(new PropertyValueFactory("code"));
-        msg.setCellValueFactory(new PropertyValueFactory("msg"));
-        name.setCellValueFactory(new PropertyValueFactory("name"));
+        code.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_CODE));
+        msg.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_MSG));
+        name.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_NAME));
+
+
+        FilteredList<EnumBean> filter = new FilteredList<>(enumBeans, p -> true);
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filter.setPredicate(enumBean -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String filterName = newValue.toLowerCase();
+
+                if (enumBean.getClassName().equalsIgnoreCase(filterName)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<EnumBean> sortedData = new SortedList<>(filter);
+        sortedData.comparatorProperty().bind(enumTable.comparatorProperty());
+        enumTable.setItems(sortedData);
     }
 
     public void refreshEnums() {

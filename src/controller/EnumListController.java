@@ -4,27 +4,20 @@ import bean.EnumBean;
 import bean.EnumProperties;
 import cache.Cache;
 import contants.Constant;
-import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import utils.UI;
+import utils.UiUtils;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -65,13 +58,13 @@ public class EnumListController extends BaseController implements Initializable 
     public void initialize(URL location, ResourceBundle resources) {
         Cache.getGuavaTable().put(Constant.Controller,Constant.EnumListController,this);
 
-        className.setCellValueFactory(new PropertyValueFactory("className"));
-        enumDeleteButton.setCellValueFactory(new PropertyValueFactory("deleteButton"));
+        className.setCellValueFactory(new PropertyValueFactory(EnumBean.CONSTANT_CLASS_NAME));
+        enumDeleteButton.setCellValueFactory(new PropertyValueFactory(EnumBean.CONSTANT_DELETE_BUTTON));
 
-        code.setCellValueFactory(new PropertyValueFactory("code"));
-        msg.setCellValueFactory(new PropertyValueFactory("msg"));
-        name.setCellValueFactory(new PropertyValueFactory("name"));
-        propertiesDeleteButton.setCellValueFactory(new PropertyValueFactory("propertiesDeleteButton"));
+        code.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_CODE));
+        msg.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_MSG));
+        name.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_NAME));
+        propertiesDeleteButton.setCellValueFactory(new PropertyValueFactory(EnumProperties.CONSTANT_PROPERTIES_DELETE_BUTTON));
         //初始化枚举详情列表清空
         showEnumDetailTable(null);
 
@@ -103,19 +96,19 @@ public class EnumListController extends BaseController implements Initializable 
         try {
             Integer.parseInt(code);
         } catch (NumberFormatException e) {
-            UI.alertErrorMessage("枚举code必须为数字类型");
+            UiUtils.alertErrorMessage("枚举code必须为数字类型");
             return;
         }
 
         String msg = addMsg.getText();
         if(StringUtils.isBlank(msg)){
-            UI.alertErrorMessage("枚举msg必须为字符类型");
+            UiUtils.alertErrorMessage("枚举msg必须为字符类型");
             return;
         }
 
         String name = addName.getText();
         if(StringUtils.isBlank(name)){
-            UI.alertErrorMessage("枚举name必须为字符类型");
+            UiUtils.alertErrorMessage("枚举name必须为字符类型");
             return;
         }
 

@@ -7,7 +7,6 @@ import bean.Table;
 import bean.TableField;
 import cache.Cache;
 import config.GlobalConfig;
-import config.TableConfig;
 import contants.Constant;
 import engine.FreemarkerTemplateEngine;
 import javafx.collections.FXCollections;
@@ -25,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
-import utils.UI;
+import utils.UiUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -94,8 +93,8 @@ public class TableGenerateController extends BaseController implements Initializ
         Cache.getGuavaTable().put(Constant.FIELD_TABLE,Constant.FIELD_TABLE,fieldTable);
         Cache.getGuavaTable().put(Constant.RIGHT_FIELD_EDIT_PAN,Constant.RIGHT_FIELD_EDIT_PAN,rightFieldEdit);
 
-        tableGeneratePic.setCellValueFactory(new PropertyValueFactory("imageView"));
-        tableGenerateName.setCellValueFactory(new PropertyValueFactory("name"));
+        tableGeneratePic.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_IMAGE_VIEW));
+        tableGenerateName.setCellValueFactory(new PropertyValueFactory(Table.CONSTANT_NAME));
 
         initFieldEnumFXML();
         initFieldObjectFXML();
@@ -104,6 +103,8 @@ public class TableGenerateController extends BaseController implements Initializ
         ChooseTableController chooseTableController = (ChooseTableController) Cache.getGuavaTable().get(Constant.Controller, Constant.ChooseTableController);
         tableGenerate.addAll(chooseTableController.getSelect());
         table.setItems(tableGenerate);
+
+        table.getSelectionModel().select(0);
 
         //表选中右侧展示
         table.getSelectionModel().selectedItemProperty().addListener(
@@ -241,7 +242,7 @@ public class TableGenerateController extends BaseController implements Initializ
             controller.setRootStage(rootStage);
             controller.setRootBorderPane(rootBorderPane);
         } catch (IOException e) {
-            UI.alertErrorMessage(String.format("加载field-enum失败：%s",e.getMessage()));
+            UiUtils.alertErrorMessage(String.format("加载field-enum失败：%s",e.getMessage()));
         }
     }
 
@@ -259,7 +260,7 @@ public class TableGenerateController extends BaseController implements Initializ
             controller.setRootStage(rootStage);
             controller.setRootBorderPane(rootBorderPane);
         } catch (IOException e) {
-            UI.alertErrorMessage(String.format("加载obj-table-field失败：%s",e.getMessage()));
+            UiUtils.alertErrorMessage(String.format("加载obj-table-field失败：%s",e.getMessage()));
         }
     }
 
@@ -331,7 +332,7 @@ public class TableGenerateController extends BaseController implements Initializ
     public void generate(ActionEvent event) throws Exception {
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
         if(selectedIndex<0){
-            UI.alertErrorMessage("请选择需要配置的表");
+            UiUtils.alertErrorMessage("请选择需要配置的表");
             return;
         }
         Table table = tableGenerate.get(selectedIndex);
@@ -339,17 +340,17 @@ public class TableGenerateController extends BaseController implements Initializ
             int index = bean.getChoiceBox().getSelectionModel().getSelectedIndex();
             if(index==1){
                 if(bean.getObjTable()==null){
-                    UI.alertErrorMessage(String.format("字段关联对象未选择表：字段名 %s", bean.getName()));
+                    UiUtils.alertErrorMessage(String.format("字段关联对象未选择表：字段名 %s", bean.getName()));
                     return;
                 }
                 if(bean.getObjField()==null){
-                    UI.alertErrorMessage(String.format("字段关联对象未选择关联表的关联字段：字段名 %s", bean.getName()));
+                    UiUtils.alertErrorMessage(String.format("字段关联对象未选择关联表的关联字段：字段名 %s", bean.getName()));
                     return;
                 }
             }
             if(index==2){
                 if(bean.getEnumBean()==null){
-                    UI.alertErrorMessage(String.format("字段配置枚举未选择枚举：字段名 %s", bean.getName()));
+                    UiUtils.alertErrorMessage(String.format("字段配置枚举未选择枚举：字段名 %s", bean.getName()));
                     return;
                 }
             }

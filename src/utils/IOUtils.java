@@ -41,7 +41,7 @@ public class IOUtils {
                 laststr += tempString;
             }
         } catch (IOException e) {
-            UI.alertErrorMessage(String.format("获取通用枚举JSON文件解析出错:%s",e));
+            UiUtils.alertErrorMessage(String.format("获取通用枚举JSON文件解析出错:%s",e));
         }
         return laststr;
     }
@@ -57,7 +57,7 @@ public class IOUtils {
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            UI.alertErrorMessage(String.format("写入通用枚举JSON文件解析出错:%s",e));
+            UiUtils.alertErrorMessage(String.format("写入通用枚举JSON文件解析出错:%s",e));
             e.printStackTrace();
         }
     }

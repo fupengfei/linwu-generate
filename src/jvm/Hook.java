@@ -25,9 +25,6 @@ public class Hook {
                 List<EnumBean> list = new ArrayList<>();
                 row.forEach((k,v)->{
                     EnumBean enumBean = (EnumBean) v;
-                    String str = enumBean.getClassName().substring(0, 1).toLowerCase() + enumBean.getClassName()
-                            .substring(1);
-                    enumBean.setFieldName(str);
                     list.add(enumBean);
                 });
 

@@ -20,10 +20,14 @@ import java.util.List;
 @Getter
 @Setter
 public class EnumBean {
+    public static String CONSTANT_CLASS_NAME = "className";
+    public static String CONSTANT_PROPERTIES = "properties";
+    public static String CONSTANT_DELETE_BUTTON = "deleteButton";
+    public static String CONSTANT_SELECT_BUTTON = "selectButton";
+
+
     @Expose
     private String className;
-    @Expose
-    private String fieldName;
     @Expose
     private List<EnumProperties> properties ;
     @Expose(serialize = false)
@@ -71,4 +75,10 @@ public class EnumBean {
         this.enumTable = enumTable;
         initButton();
     }
+
+    public String getEnumField(){
+        return this.getClassName().substring(0, 1).toLowerCase() + this.getClassName()
+                .substring(1);
+    }
+
 }

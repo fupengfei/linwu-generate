@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
  * @date ：2018/9/18
  * @description :
  */
-public class UI {
+public class UiUtils {
     public static void alertErrorMessage(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("错误信息");
