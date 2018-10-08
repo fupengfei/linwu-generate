@@ -71,9 +71,7 @@ public class ObjectTableFieldController extends BaseController implements Initia
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                String filterName = newValue.toLowerCase();
-
-                if (table.getName().contains(filterName)) {
+                if (table.getName().contains(newValue)) {
                     return true;
                 }
                 return false;

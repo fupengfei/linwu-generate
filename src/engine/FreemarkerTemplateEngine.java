@@ -60,13 +60,30 @@ public class FreemarkerTemplateEngine {
 
         }
         if(fileChoose.isServiceImpl()){
-
+            String format = null;
+            if(Constant.SOLUTION.equals(globalConfig.getSource())){
+                format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getServiceImplPath(), table.getClassName()+"Service",".java");
+            }
+            if(Constant.WY.equals(globalConfig.getSource())){
+                format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getServiceImplPath(), table.getClassName()+"Service",".java");
+            }
+            createFile(builder,templateConfig.getServiceImpl(),format);
         }
         if(fileChoose.isDao()){
-
+            if(Constant.WY.equals(globalConfig.getSource())){
+                String format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getDaoPath(), table.getClassName()+"Dao",".java");
+                createFile(builder,templateConfig.getDao(),format);
+            }
         }
         if(fileChoose.isMapper()){
-
+            String format = null;
+            if(Constant.SOLUTION.equals(globalConfig.getSource())){
+                format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getMapperPath(), "I"+table.getClassName()+"Mapper",".java");
+            }
+            if(Constant.WY.equals(globalConfig.getSource())){
+                format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getMapperPath(), "I"+table.getClassName()+"Mapper",".java");
+            }
+            createFile(builder,templateConfig.getMapper(),format);
         }
         if(fileChoose.isXml()){
             String format = null;
@@ -134,5 +151,10 @@ public class FreemarkerTemplateEngine {
         if(!exists){
             parentFile.mkdirs();
         }
+    }
+
+    public static void main(String[] args) {
+        String property = System.getProperty("user.dir");
+        System.out.println(property);
     }
 }

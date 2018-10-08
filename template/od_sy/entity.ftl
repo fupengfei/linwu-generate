@@ -19,28 +19,29 @@ import java.time.LocalDateTime;
 public class ${table.getClassName()} extends BasePo{
 
 <#list table.fieldInfoList as field>
-  <#if field.keyFlag>
-    @Id
-    @GeneratedValue(generator = "JDBC")
-  </#if>
-    /**
+  /**
     *${field.comment!}
     */
-    @Column(name = "${field.name}")
-    private ${field.columnType.type} ${field.getJavaField()};
+  <#if field.keyFlag>
+  @Id
+  @GeneratedValue(generator = "JDBC")
+  <#else>
+  @Column(name = "${field.name}")
+  </#if>
+  private ${field.columnType.type} ${field.getJavaField()};
 </#list>
 
-    /**
-    *Java字段映射
-    */
+  /**
+  *Java字段映射
+  */
 <#list table.fieldInfoList as field>
-    public static final String ${field.getFieldConstant()} = "${field.name}";
+  public static final String ${field.getFieldConstant()} = "${field.name}";
 </#list>
 
-    /**
-    *表字段映射
-    */
+  /**
+  *表字段映射
+  */
 <#list table.fieldInfoList as field>
-    public static final String ${field.getColumnConstant()} = "${field.name}";
+  public static final String ${field.getColumnConstant()} = "${field.name}";
 </#list>
 }

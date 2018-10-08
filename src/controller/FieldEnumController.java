@@ -77,9 +77,8 @@ public class FieldEnumController  extends BaseController implements Initializabl
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                String filterName = newValue.toLowerCase();
 
-                if (enumBean.getClassName().equalsIgnoreCase(filterName)) {
+                if (enumBean.getClassName().contains(newValue)) {
                     return true;
                 }
                 return false;

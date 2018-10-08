@@ -105,9 +105,10 @@ public class TableGenerateController extends BaseController implements Initializ
         table.setItems(tableGenerate);
 
         table.getSelectionModel().select(0);
+        showTableDetail(tableGenerate.get(0));
 
         //表选中右侧展示
-        table.getSelectionModel().selectedItemProperty().addListener(
+        this.table.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showTableDetail((Table) newValue));
 
         fieldTable.getSelectionModel().selectedItemProperty().addListener(

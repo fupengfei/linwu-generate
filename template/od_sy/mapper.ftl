@@ -1,14 +1,13 @@
-package ${package.Mapper};
+package ${globalConfig.packageConfig.mapper};
 
-import com.homedo.microservice.odin.wy.bean.po.${entity};
+import ${globalConfig.packageConfig.entity};
 import com.homedo.common.dao._mapper.support._mapper.MyMapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author ${author}
- * @date ${date}
+ * @author ${globalConfig.author};
  */
 @Repository
-public interface I${table.mapperName} extends MyMapper<${entity}>{
+public interface I${table.getClassName()}Mapper extends MyMapper<${table.getClassName()}>{
 
 }

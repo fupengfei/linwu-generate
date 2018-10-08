@@ -1,7 +1,13 @@
 package utils;
 
+import bean.EnumBean;
+import com.google.common.io.Files;
+import com.google.gson.Gson;
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ：ZhangLei
@@ -31,34 +37,24 @@ public class IOUtils {
         return swapStream;
     }
 
+    public final static String JsonFilePath = String.format("%s%s", System.getProperty("user.dir"), "/src/resource/enum.json");
+
     public static String getEnumJson(){
-        String laststr = "";
-        try(InputStream in = IOUtils.class.getResourceAsStream("/resource/enum.json");
-            InputStreamReader inputStreamReader = new InputStreamReader(in, "UTF-8");
-            BufferedReader reader = new BufferedReader(inputStreamReader);) {
-            String tempString = null;
-            while ((tempString = reader.readLine()) != null) {
-                laststr += tempString;
-            }
+        try{
+            List<String> list = Files
+                    .readLines(new File(JsonFilePath), Charset.forName("utf-8"));
+            return list.stream().collect(Collectors.joining());
         } catch (IOException e) {
             UiUtils.alertErrorMessage(String.format("获取通用枚举JSON文件解析出错:%s",e));
         }
-        return laststr;
+        return "";
     }
 
     public static void setEnumJson(String json){
         try{
-            URL resource = IOUtils.class.getResource("/resource/enum.json");
-            Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(resource.getFile()), "utf-8"));
-            writer.write("");
-            writer.flush();
-            writer.write(json);
-            writer.flush();
-            writer.close();
+            Files.write(json,new File(JsonFilePath), Charset.forName("utf-8"));
         } catch (Exception e) {
             UiUtils.alertErrorMessage(String.format("写入通用枚举JSON文件解析出错:%s",e));
-            e.printStackTrace();
         }
     }
 }

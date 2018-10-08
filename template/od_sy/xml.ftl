@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="${globalConfig.packageConfig.mapper}.${table.getClassField()}Mapper">
+<mapper namespace="${globalConfig.packageConfig.mapper}.I${table.getClassName()}Mapper">
 
-  <resultMap id="BaseResultMap" type="${globalConfig.packageConfig.mapper}.${table.getClassName()}Mapper">
+  <resultMap id="BaseResultMap" type="${globalConfig.packageConfig.entity}.${table.getClassName()}">
     <!-- WARNING - @mbggenerated -->
   </resultMap>
 

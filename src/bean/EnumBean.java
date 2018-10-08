@@ -36,7 +36,6 @@ public class EnumBean {
     private Button deleteButton;
     @Expose(serialize = false)
     private Button selectButton;
-
     @Expose(serialize = false)
     private TableView enumDetailTable;
 

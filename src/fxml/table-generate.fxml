@@ -56,7 +56,7 @@
                             </AnchorPane>
                           </items>
                         </SplitPane>
-                        <Button layoutX="176.0" layoutY="694.0" mnemonicParsing="false" text="配置方法" />
+                        <!--<Button layoutX="176.0" layoutY="694.0" mnemonicParsing="false" text="配置方法" />-->
                         <Button layoutX="643.0" layoutY="694.0" mnemonicParsing="false" text="生成代码" onAction="#generate"/>
 
                      </children>

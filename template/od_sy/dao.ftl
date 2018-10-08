@@ -1,17 +1,16 @@
-package ${package.Dao};
+package ${globalConfig.packageConfig.dao};
 
 import com.homedo.common.dao.BaseDao;
-import com.homedo.microservice.odin.wy.persistence.mapper.I${entity}Mapper;
-import com.homedo.microservice.odin.wy.bean.po.${entity};
+import ${globalConfig.packageConfig.mapper}.I${table.getClassName()}Mapper;
+import ${globalConfig.packageConfig.entity};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author ${author}
- * @date ${date}
+ * @author ${globalConfig.author};
  */
 @Repository
-public class ${entity}Dao extends BaseDao<${entity}>{
+public class ${table.getClassName()}Dao extends BaseDao<${table.getClassName()}>{
     @Autowired
-    private I${entity}Mapper  ${entityLower}Mapper;
+    private I${table.getClassName()}Mapper  ${table.getClassField()}Mapper;
 }

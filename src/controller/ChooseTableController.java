@@ -6,12 +6,15 @@ import config.TableConfig;
 import contants.Constant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
@@ -47,6 +50,8 @@ public class ChooseTableController extends BaseController implements Initializab
     private TableColumn selectTableName;
     @FXML
     private TableColumn selectTableOperate;
+    @FXML
+    private TextField search;
 
     private  final ObservableList<Table> all = FXCollections.observableArrayList();
     private  final ObservableList<Table> select = FXCollections.observableArrayList();
@@ -66,7 +71,22 @@ public class ChooseTableController extends BaseController implements Initializab
         select.addAll(tableConfig.getGenerateTables());
         selectTables.setItems(select);
 
+        FilteredList<Table> filter = new FilteredList<>(all, p -> true);
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filter.setPredicate(table -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                if (table.getName().contains(newValue)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Table> sortedData = new SortedList<>(filter);
+        sortedData.comparatorProperty().bind(dbTables.comparatorProperty());
 
+        dbTables.setItems(sortedData);
     }
 
     /**
