@@ -62,7 +62,7 @@ public class PackageConfig {
         entity = String.format("%s.bean.po",parentPackage);
         enhanced = String.format("%s.bean.po.enhanced",parentPackage);
         enumPackage = String.format("%s.bean.enums",parentPackage);
-        responseBeanPackage = String.format("%s.bean.model.req",parentPackage);
-        requestBeanPackage = String.format("%s.bean.model.resp",parentPackage);
+        responseBeanPackage = String.format("%s.api.bean.model.resp",parentPackage);
+        requestBeanPackage = String.format("%s.api.bean.model.req",parentPackage);
     }
 }

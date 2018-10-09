@@ -70,7 +70,6 @@ public class Table {
             if(select.contains(this)){
                 select.remove(this);
             }
-
             //展示
             this.allButton.setVisible(true);
             this.allButton.setManaged(true);
@@ -79,6 +78,9 @@ public class Table {
 
     public String getClassName(){
         return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, this.name);
+    }
+    public String getClassNameLower(){
+        return getClassName().toLowerCase();
     }
 
     public String getClassField(){

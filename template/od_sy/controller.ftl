@@ -80,5 +80,4 @@ public class ${table.getClassName()}Controller{
    }
    </#if>
    </#list>
-
 }

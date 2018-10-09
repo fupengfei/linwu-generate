@@ -38,6 +38,7 @@ public class TemplateConfig {
     private String enumTemplate;
 
     private String response;
+    private String pageResponse;
 
     private String request;
 
@@ -67,5 +68,6 @@ public class TemplateConfig {
         enumTemplate = path + "enum.ftl";
         response = path + "response.ftl";
         request = path + "request.ftl";
+        pageResponse = path + "pageResp.ftl";
     }
 }

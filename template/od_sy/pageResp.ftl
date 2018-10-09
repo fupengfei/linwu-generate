@@ -1,6 +1,7 @@
-package ${globalConfig.packageConfig.responseBeanPackage};
+package ${globalConfig.packageConfig.responseBeanPackage}.${table.getClassNameLower()};
 
 import com.homedo.common.bean.model.resp.common.CommonListPageAResp;
+import ${globalConfig.packageConfig.responseBeanPackage}.${table.getClassNameLower()}.${table.getClassName()}Resp;
 
 /**
  * @author ${globalConfig.author};

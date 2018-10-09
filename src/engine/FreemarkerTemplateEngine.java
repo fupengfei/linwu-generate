@@ -113,10 +113,6 @@ public class FreemarkerTemplateEngine {
             createFile(builder,templateConfig.getEnhanced(),format);
         }
 
-        if(fileChoose.isReq()){}
-        if(fileChoose.isResp()){}
-        if(fileChoose.isQuery()){}
-
         //生成字段关联对象枚举
         List<TableField> fieldInfoList = new ArrayList<>(table.getFieldInfoList());
         fieldInfoList.removeIf(field->field.getEnumBean()==null);
@@ -130,6 +126,37 @@ public class FreemarkerTemplateEngine {
             map.put("bizEnum",bizEnum);
             createFile(map,templateConfig.getEnumTemplate(),format);
         }
+
+        //Response
+        if(Constant.SOLUTION.equals(globalConfig.getSource())){
+            String format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getResponseBeanPackagePath()+table.getClassName().toLowerCase()+"/", table.getClassName()+"Resp",".java");
+            createFile(builder,templateConfig.getResponse(),format);
+        }
+        if(Constant.WY.equals(globalConfig.getSource())){
+            String format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getResponseBeanPackagePath()+table.getClassName().toLowerCase()+"/", table.getClassName()+"Resp",".java");
+            createFile(builder,templateConfig.getResponse(),format);
+        }
+
+        //pageResponse 生成
+        if(Constant.SOLUTION.equals(globalConfig.getSource())){
+            String format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getResponseBeanPackagePath()+table.getClassName().toLowerCase()+"/", table.getClassName()+"PageResp",".java");
+            createFile(builder,templateConfig.getPageResponse(),format);
+        }
+        if(Constant.WY.equals(globalConfig.getSource())){
+            String format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getResponseBeanPackagePath()+table.getClassName().toLowerCase()+"/", table.getClassName()+"PageResp",".java");
+            createFile(builder,templateConfig.getPageResponse(),format);
+        }
+
+        //request 生成
+        if(Constant.SOLUTION.equals(globalConfig.getSource())){
+            String format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getRequestBeanPackagePath()+table.getClassName().toLowerCase()+"/", table.getClassName()+"Req",".java");
+            createFile(builder,templateConfig.getRequest(),format);
+        }
+        if(Constant.WY.equals(globalConfig.getSource())){
+            String format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getRequestBeanPackagePath()+table.getClassName().toLowerCase()+"/", table.getClassName()+"Req",".java");
+            createFile(builder,templateConfig.getRequest(),format);
+        }
+
         SystemUtils.open(outputDir);
     }
 

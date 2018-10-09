@@ -1,4 +1,4 @@
-package ${globalConfig.packageConfig.responseBeanPackage};
+package ${globalConfig.packageConfig.responseBeanPackage}.${table.getClassNameLower()};
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.homedo.microservice.odin.wy.api.bean.model.base.BasePageReq
@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 /**
  * @author ${globalConfig.author};

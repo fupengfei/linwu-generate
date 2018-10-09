@@ -68,7 +68,7 @@ public class FilePathConfig {
         entityPath =  "/bean/po/" ;
         enhancedPath =  "/bean/enhanced/" ;
         enumPath =  "/bean/enums/" ;
-        responseBeanPackagePath =  "/bean/resp/" ;
-        requestBeanPackagePath =  "/bean/req/" ;
+        responseBeanPackagePath =  "/api/bean/resp/";
+        requestBeanPackagePath =  "/api/bean/req/";
     }
 }
