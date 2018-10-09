@@ -12,6 +12,7 @@ import contants.Constant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import java.util.ArrayList;
 import utils.SystemUtils;
 
 import java.io.File;
@@ -54,7 +55,14 @@ public class FreemarkerTemplateEngine {
 
         }
         if(fileChoose.isController()){
-
+            String format = null;
+            if(Constant.SOLUTION.equals(globalConfig.getSource())){
+                format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getControllerPath(), table.getClassName()+"Controller",".java");
+            }
+            if(Constant.WY.equals(globalConfig.getSource())){
+                format = String.format("%s%s%s%s%s", outputDir, File.separator,filePathConfig.getControllerPath(), table.getClassName()+"Controller",".java");
+            }
+            createFile(builder,templateConfig.getController(),format);
         }
         if(fileChoose.isService()){
 
@@ -110,7 +118,7 @@ public class FreemarkerTemplateEngine {
         if(fileChoose.isQuery()){}
 
         //生成字段关联对象枚举
-        List<TableField> fieldInfoList = table.getFieldInfoList();
+        List<TableField> fieldInfoList = new ArrayList<>(table.getFieldInfoList());
         fieldInfoList.removeIf(field->field.getEnumBean()==null);
         for (TableField field : fieldInfoList) {
             //业务枚举的包名
