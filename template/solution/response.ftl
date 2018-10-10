@@ -1,7 +1,7 @@
 package ${globalConfig.packageConfig.responseBeanPackage}.${table.getClassNameLower()};
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.homedo.common.bean.model.base.BaseAMO;
+import com.homedo.odin.solution.model.base.BaseBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ApiModel
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ${table.getClassName()}Resp extends BasePo{
+public class ${table.getClassName()}Resp extends BaseBean {
 <#list table.fieldInfoList as field>
   <#if field.enumBean??>
     @ApiModelProperty(value = "${field.comment}  状态属性")

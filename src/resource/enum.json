@@ -1,1 +1,1 @@
-[{"className":"DeleteEnum","properties":[{"name":"YES","code":"1","msg":"已删除"},{"name":"NO","code":"0","msg":"未删除"}]},{"className":"ShefEnum","properties":[{"name":"YES","code":"1","msg":"以上架"},{"name":"NO","code":"0","msg":"未上架"}]}]
+[{"className":"DeleteEnum","properties":[{"name":"YES","code":"1","msg":"已删除"},{"name":"NO","code":"0","msg":"未删除"}]},{"className":"ShefEnum","properties":[{"name":"YES","code":"1","msg":"以上架"},{"name":"NO","code":"0","msg":"未上架"},{"name":"HA","code":"1","msg":"2"}]}]

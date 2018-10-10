@@ -143,6 +143,17 @@ public class ${table.getClassName()}Service extends BaseService<${table.getClass
         </#if>
         </#list>
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void update${table.getClassName()}(${field.columnType.type} ${field.getJavaField()},${table.getClassName()}Req req){
+        //TODO 业务逻辑
+    }
     </#if>
 </#list>
+
+    @Transactional(rollbackFor = Exception.class)
+    public void add${table.getClassName()}(${table.getClassName()}Req req){
+        //TODO 业务逻辑
+
+    }
 }

@@ -38,9 +38,14 @@ public class TemplateConfig {
     private String enumTemplate;
 
     private String response;
+
     private String pageResponse;
 
     private String request;
+
+    private String pageRequest;
+
+    private String query;
 
     public void initWy() {
         path = "/od_sy/";
@@ -69,5 +74,7 @@ public class TemplateConfig {
         response = path + "response.ftl";
         request = path + "request.ftl";
         pageResponse = path + "pageResp.ftl";
+        pageRequest = path + "pageReq.ftl";
+        query = path + "query.ftl";
     }
 }

@@ -2,7 +2,6 @@ package controller;
 
 import bean.EnumBean;
 import bean.FileBuilder;
-import bean.FileChoose;
 import bean.Table;
 import bean.TableField;
 import cache.Cache;
@@ -141,7 +140,6 @@ public class TableGenerateController extends BaseController implements Initializ
             return;
         }
         Table t = (Table) table.getItems().get(selectedIndex);
-        t.getFileChoose().all();
     }
 
 
@@ -156,21 +154,6 @@ public class TableGenerateController extends BaseController implements Initializ
             return;
         }
         Table t = (Table) table.getItems().get(selectIndex);
-        FileChoose fileChoose = t.getFileChoose();
-
-        fileChoose.setController(controllerCheckBox.isSelected());
-        fileChoose.setRemote(remoteCheckBox.isSelected());
-        fileChoose.setRemoteImpl(remoteImplCheckBox.isSelected());
-        fileChoose.setService(serviceCheckBox.isSelected());
-        fileChoose.setServiceImpl(serviceImplCheckBox.isSelected());
-        fileChoose.setDao(daoCheckBox.isSelected());
-        fileChoose.setMapper(mapperCheckBox.isSelected());
-        fileChoose.setEntity(entityCheckBox.isSelected());
-        fileChoose.setEnhanced(enhancedCheckBox.isSelected());
-        fileChoose.setReq(reqCheckBox.isSelected());
-        fileChoose.setResp(respCheckBox.isSelected());
-        fileChoose.setXml(xmlCheckBox.isSelected());
-        fileChoose.setQuery(queryCheckBox.isSelected());
     }
 
     /**全取
@@ -196,7 +179,6 @@ public class TableGenerateController extends BaseController implements Initializ
             return;
         }
         Table t = (Table) table.getItems().get(selectIndex);
-        t.getFileChoose().cancel();
     }
 
     private void showTableDetail(Table table){
@@ -211,22 +193,6 @@ public class TableGenerateController extends BaseController implements Initializ
         //方式当前字段表格对象，为了比对是哪一行的字段需要配置
         tableFieldList.forEach(field->field.setTableView(fieldTable));
         fieldTable.setItems(tableFieldList);
-
-        //生成文件展示
-        FileChoose fileChoose = table.getFileChoose();
-        controllerCheckBox.setSelected(fileChoose.isController());
-        remoteCheckBox.setSelected(fileChoose.isRemote());
-        remoteImplCheckBox.setSelected(fileChoose.isRemoteImpl());
-        serviceCheckBox.setSelected(fileChoose.isService());
-        serviceImplCheckBox.setSelected(fileChoose.isServiceImpl());
-        daoCheckBox.setSelected(fileChoose.isDao());
-        mapperCheckBox.setSelected(fileChoose.isMapper());
-        entityCheckBox.setSelected(fileChoose.isEntity());
-        enhancedCheckBox.setSelected(fileChoose.isEnhanced());
-        reqCheckBox.setSelected(fileChoose.isReq());
-        respCheckBox.setSelected(fileChoose.isResp());
-        xmlCheckBox.setSelected(fileChoose.isXml());
-        queryCheckBox.setSelected(fileChoose.isQuery());
     }
 
     /**
@@ -337,7 +303,7 @@ public class TableGenerateController extends BaseController implements Initializ
             return;
         }
         Table table = tableGenerate.get(selectedIndex);
-        table.getFieldInfoList().forEach(bean->{
+        for (TableField bean : table.getFieldInfoList()) {
             int index = bean.getChoiceBox().getSelectionModel().getSelectedIndex();
             if(index==1){
                 if(bean.getObjTable()==null){
@@ -355,7 +321,7 @@ public class TableGenerateController extends BaseController implements Initializ
                     return;
                 }
             }
-        });
+        }
         GlobalConfig globalConfig = (GlobalConfig) Cache.getGuavaTable().get(Constant.GLOBAL_CONFIG, Constant.GLOBAL_CONFIG);
         FileBuilder fileBuilder = new FileBuilder();
         fileBuilder.setGlobalConfig(globalConfig);

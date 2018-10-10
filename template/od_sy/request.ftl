@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ApiModel
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ${table.getClassName()}Resp extends BasePo{
+public class ${table.getClassName()}Req extends BasePo{
 <#list table.fieldInfoList as field>
   <#if field.enumBean??>
     @ApiModelProperty(value = "${field.comment}  状态属性")
@@ -22,10 +22,13 @@ public class ${table.getClassName()}Resp extends BasePo{
 
   <#elseIf field.objTable??>
     @ApiModelProperty(value = "${field.comment}  关联对象")
-    private ${field.objTable.getClassName()}req ${field.objTable.getClassField()}req;
+    private ${field.objTable.getClassName()}Req ${field.objTable.getClassField()}Req;
 
   <#else>
     @ApiModelProperty(value = "${field.comment}")
+    <#if field.columnType.type=='LocalDateTime'>
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    </#if>
     private ${field.columnType.type} ${field.javaField};
 
   </#if>

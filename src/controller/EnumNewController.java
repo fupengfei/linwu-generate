@@ -74,8 +74,8 @@ public class EnumNewController extends BaseController implements Initializable {
         showEnumDetailTable(null);
 
         //监听行选取变化，右边Enum展示对应的枚举属性列表
-        enumTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showEnumDetailTable((EnumBean) newValue));
+//        enumTable.getSelectionModel().selectedItemProperty().addListener(
+//                (observable, oldValue, newValue) -> showEnumDetailTable((EnumBean) newValue));
         enumTable.setItems(enumBeans);
 
     }

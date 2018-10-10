@@ -32,7 +32,6 @@ public class Table {
     private List<TableField> fieldInfoList = new ArrayList<>();
     private Button allButton;
     private Button selectButton;
-    private FileChoose fileChoose = new FileChoose();
 
     public Table(){
         this.imageView = new ImageView(new Image(getClass().getResourceAsStream("/resource/table.png")));

@@ -1,7 +1,7 @@
 package ${globalConfig.packageConfig.responseBeanPackage}.${table.getClassNameLower()};
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.homedo.common.bean.model.base.BaseAMO;
+import com.homedo.odin.solution.model.base.BasePageReq;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
@@ -14,20 +14,26 @@ import java.time.LocalDateTime;
 @ApiModel
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ${table.getClassName()}Resp extends BasePo{
+public class ${table.getClassName()}PageReq extends BasePageReq{
 <#list table.fieldInfoList as field>
   <#if field.enumBean??>
     @ApiModelProperty(value = "${field.comment}  状态属性")
-    private ${field.enumBean.className} ${field.enumBean.getEnumField()};
-
-  <#elseIf field.objTable??>
-    @ApiModelProperty(value = "${field.comment}  关联对象")
-    private ${field.objTable.getClassName()}Resp ${field.objTable.getClassField()}Resp;
+    private Integer ${field.enumBean.getEnumField()};
 
   <#else>
+    <#if field.columnType.type == 'LocalDateTime'>
+    <#else>
     @ApiModelProperty(value = "${field.comment}")
     private ${field.columnType.type} ${field.javaField};
 
+    </#if>
   </#if>
 </#list>
+    @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startDate;
+
+    @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime endDate;
 }

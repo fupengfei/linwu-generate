@@ -15,26 +15,26 @@ import java.time.LocalDateTime;
 @ApiModel
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ${table.getClassName()}Req extends BasePageReq{
+public class ${table.getClassName()}PageReq extends BasePageReq{
 <#list table.fieldInfoList as field>
   <#if field.enumBean??>
     @ApiModelProperty(value = "${field.comment}  状态属性")
     private Integer ${field.enumBean.getEnumField()};
-  <#elseIf field.objTable??>
-    @ApiModelProperty(value = "${field.comment}  关联对象请求对象")
-    private ${field.objTable.getClassName()}Req ${field.objTable.getClassField()}Req;
+
   <#else>
-    <#if field.DbColumnType.type != LocalDateTime>
+    <#if field.columnType.type == 'LocalDateTime'>
+    <#else>
     @ApiModelProperty(value = "${field.comment}")
     private ${field.columnType.type} ${field.javaField};
+
     </#if>
   </#if>
 </#list>
-  @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm:ss")
-  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private LocalDateTime startDate;
+    @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startDate;
 
-  @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm:ss")
-  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private LocalDateTime endDate;
+    @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime endDate;
 }

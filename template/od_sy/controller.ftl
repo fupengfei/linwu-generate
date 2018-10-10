@@ -78,6 +78,22 @@ public class ${table.getClassName()}Controller{
       ${table.getClassField()}Service.delete${table.getClassName()}(${field.getJavaField()});
       return new ResponseData();
    }
+
+   @PutMapping("/{${field.getJavaField()}}")
+   @ApiOperation(value = "修改${table.comment!}")
+   public ResponseData update(@PathVariable("{${field.getJavaField()}}") ${field.columnType.type} ${field.getJavaField()},@Validated @RequestBody ${table.getClassName()}Req req) {
+      ${table.getClassField()}Service.update${table.getClassName()}(${field.getJavaField()},req);
+      return new ResponseData();
+   }
    </#if>
    </#list>
+
+   @PostMapping
+   @ApiOperation(value = "新增${table.comment!}")
+   public ResponseData add(@Validated @RequestBody ${table.getClassName()}Req req) {
+      ${table.getClassField()}Service.add${table.getClassName()}(req);
+      return new ResponseData();
+   }
+
+
 }

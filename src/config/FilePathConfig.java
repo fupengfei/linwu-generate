@@ -40,6 +40,8 @@ public class FilePathConfig {
 
     private String requestBeanPackagePath;
 
+    private String queryPath;
+
     public void initSolutionPath() {
         remoteApiPath = "/remote/api/";
         remoteApiImplPath = "/remote/api/impl/";
@@ -54,6 +56,7 @@ public class FilePathConfig {
         enumPath = "/enumcode/";
         responseBeanPackagePath = "/model/response/";
         requestBeanPackagePath = "/model/request/";
+        queryPath = "/model/query/";
     }
 
     public void initWyPath() {
@@ -70,5 +73,6 @@ public class FilePathConfig {
         enumPath =  "/bean/enums/" ;
         responseBeanPackagePath =  "/api/bean/resp/";
         requestBeanPackagePath =  "/api/bean/req/";
+        queryPath =  "/bean/query/";
     }
 }
